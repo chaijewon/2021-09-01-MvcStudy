@@ -7,13 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-   <center>
-    <h1>메뉴</h1>
-    <ul>
-      <li><a href="ko.do">한식</a></li>
-      <li><a href="ch.do">중식</a></li>
-      <li><a href="ja.do">일식</a></li>
-    </ul>
-   </center>
+  <center>
+   <img src="main/b.jpg" width=500 height=350>
+  </center>
 </body>
 </html>
