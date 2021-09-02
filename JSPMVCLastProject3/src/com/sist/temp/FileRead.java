@@ -1,5 +1,6 @@
 package com.sist.temp;
 import java.io.*;
+import java.net.URL;
 // package가 등록될때 처리
 import java.util.*;
 public class FileRead {
@@ -16,7 +17,14 @@ public class FileRead {
 	   try
 	   {
 		   // 맥 => 경로 (getReource())
-		   String path="C:\\20210609-JspDev\\jspStudy\\JSPMVCLastProject3\\src\\";
+		   URL url = this.getClass().getClassLoader().getResource(".");
+		   System.out.println(url.toURI());
+		   File file = new File(url.toURI());
+		   String temp=file.getPath();
+		   temp=temp.substring(0,temp.lastIndexOf("\\"));
+		   temp=temp.substring(0,temp.lastIndexOf("\\"));
+		   System.out.println(temp);
+		   String path=temp+"\\src\\";
 		   path=path+pack.replace(".", "\\");
 		   File dir=new File(path);
 		   //파일 목록을 읽는다 
@@ -28,7 +36,7 @@ public class FileRead {
 			   String ext=name.substring(name.lastIndexOf(".")+1);
 			   if(ext.equals("java"))
 			   {
-				   //System.out.println(name);
+				   System.out.println(name);
 				   String cls=name.substring(0,name.lastIndexOf("."));
 				   String p=pack+"."+cls;
 				   //System.out.println(p);

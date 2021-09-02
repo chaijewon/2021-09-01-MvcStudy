@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>JSPMVCLastProject4</display-name>
+  <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>com.sist.controller.DispatcherServlet</servlet-class>
+    <!-- 파일의 위치(XML)
+                 메뉴(기능)를 문서화 
+     -->
+     <init-param>
+       <param-name>contextConfigLocation</param-name>
+       <!-- <param-value>C:\20210609-JspDev\jspStudy\JSPMVCLastProject4\WebContent\WEB-INF\application.xml</param-value> 
+              컴퓨터 (윈도우 , 맥) => 프로젝트 (개인 => 공통) : 한개의 프로젝트로 여러명이 동시에 작업 
+                        => push => 본인이 제작한 프로젝트가 깃에 올라간다(경로가 틀릴 수도 있다)
+        -->
+        <param-value>application.xml</param-value>
+     </init-param>
+  </servlet>
+  <!-- 
+         Class clsName=Class.forName("com.sist.controller.DispatcherServlet");
+         Object obj=clsName.newInstance(); 
+         map.put("dispatcher",obj)
+   -->
+  <servlet-mapping><!-- DispatcherServlet을 호출하기 위한 URL를 제작 -->
+    <servlet-name>dispatcher</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
