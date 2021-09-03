@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>JSPMVCProject</display-name>
+  <!-- 
+       Spring MVC
+       1. web.xml => Controller (DispatcherServlet)
+                     => 클래스등록 파일 => application_context.xml
+                        ===========
+                                              패키지 단위 <context:component-scan base-package="">
+                                              클래스만 등록 <bean id="" class="">
+       2. 사용자 요청 처리 => 모델 클래스 
+          @Controller 
+          public class ListModel
+          {
+              @RequestMapping("board/list.do")
+              public String board_list(HttpServletRequest request)
+              {
+                                 처리
+                  return "../board/list.jsp";
+              }
+          }
+   -->
+  <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>com.sist.controller.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>application.xml</param-value><!-- model 클래스 등록(패키지) -->
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+     <servlet-name>dispatcher</servlet-name>
+     <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  <!-- 
+      URL(브라우저) => 전송 (톰캣이 받는다) ==> 처리 
+      ().do
+      =====
+      URL주소 마지막에 .do ==> DispatcherServlet을 메모리 할당 => service()메소드 호출 
+                   === 자동으로 service()메소드 호출 (톰캣에 의해 호출)
+      link , 화면이동 => .do (service()메소드를 호출해라)
+      service() => 요청에 대한 처리 => 메소드를 호출 (@RequestMapping())
+                메소드 수행 => 결과값 => request,session에 값을 담아서 => JSP로 전송 
+                (JSP에서 실행된 결과를 브라우저에서 실행)
+                
+      MVC구조 (재사용,보안,확장성) JSP(model1=> 재사용불가 , 보안에 취약)
+                    JSP => Java/HTML => 연결
+           자바 => 컴파일 (.class=> 볼수가 없다) => .class( .jar => .class파일만 존재)
+      M (Model) => 자바로 사용자 요청 처리 (~VO,~DAO,~Manager,~Service)
+      V (View) => 화면에만 출력 (JSP)
+      C (Controller) => Java/Html연결 (서블릿) => 517page
+      
+      518page 
+                  1         
+                          요청(request)    2                            3                    4
+             사용자  =============== 컨트롤러 <==========> 요청을 처리하는 메소드를 찾는다(모델)<=> DAO
+                              |  request/session에 결과값을 담아서 컨트롤러로 전송
+                                            5
+                              |
+                             JSP를 찾아서 (request/session) 전송  6
+                             ===
+                                 7                  8
+                                                      전송받은 값을 출력 ===> 브라우저에서 읽어간다
+             컨트롤러를 서블릿을 만든 이유 (화면출력(X) , 연결) => 보안 (자바) 
+               ====
+                            브라우저에 요청한 내용을 받을 수 있는 => 자바파일 (서블릿,JSP) => 519page
+       1. 520page
+                  컨트롤러 동작
+             = 사용자의 요청을 받는다 (HTTP요청 받음) => http://localhost:8080/JSPMVCProject/main/main.do
+                               ============= URL주소 
+             = 사용자 요청 분석 => main/main.do , board/list.do
+             = 요청 처리하는 메소드를 찾는다 
+               ===================== 조건문 
+                String cmd="main/main.do"; 
+               if(cmd.equals("main/main.do")) ==> 어노테이션 (찾기 => if를 변경)
+               {
+                    MainModel m=new MainModel();
+                    m.main_page(request);
+               }
+               ==> 다음 /네이버  => 조건문 ==> 70000~80000개
+               ==> index 
+             = 결과값을 받는다 (request,session에 담아준다)
+                           ======= =======
+                                                   한개의 JSP에서만 실행 할 경우 (request)
+                                                   여러개의 JSP에서 사용할 경우 (session) 
+                                                   => 결재,예매, 장바구니 ,찜 (누구) => id
+             = JSP로 전송 
+                = request가 필요없는 경우 => insert => list
+                                        update => detail
+                                        delete => list
+                                        sendRedirect()  : 화면 이동                                 
+                = request가 필요있는 경우 => forward() => request를 전송 (화면에 결과 출력)
+             = 브라우저에서 읽어가면 종료
+             
+             => if , switch 처리 
+             => xml(properties),map => 실무 (스프링,스트럿츠=>XML,Annotation)
+             => 527page => web.xml (542page참조)
+             => 기술면접 (543page => model1 vs model2)
+             => model1 (간단한 사이트) => 개인기업 , 개인 홈페이지 (수정이 없는 사이트)
+             => model2 (기업용 사이트 => 토탈) => 은행 , 증권,공기업 ...,학교
+                ====== 다음/네이버 => 자체 컨트롤러가 가지고 있다 
+                       ========= 컨트롤러를 제작할 수 있어야 한다 
+                                                              
+   -->
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
