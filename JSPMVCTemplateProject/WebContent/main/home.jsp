@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 사이트의 첫페이지 
      예매 => 영화 
    장바구니 => 
@@ -61,35 +62,30 @@
       </li>
     </ul>
     <!-- ################################################################################################ -->
-    <h2 class="sectiontitle">Lorem Ipsum Dolor</h2>
+    <h2 class="sectiontitle">현재상영영화</h2>
     <!-- ################################################################################################ -->
     <div class="flexslider carousel basiccarousel btmspace-80">
       <ul class="slides">
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
+        <c:forEach var="vo" items="${rList }">
+	        <li>
+	          <figure><img class="radius-10 btmspace-10" src="${vo.poster }" alt="" style="width:350px;height:185px">
+	            <figcaption><a href="../movie/detail.do?mno=${vo.mno }">${vo.title }</a></figcaption>
+	          </figure>
+	        </li>
+        </c:forEach> 
+      </ul>
+    </div>
+    <h2 class="sectiontitle">개봉예정영화</h2>
+    <!-- ################################################################################################ -->
+    <div class="flexslider carousel basiccarousel btmspace-80">
+      <ul class="slides">
+        <c:forEach var="vo" items="${sList }">
+	        <li>
+	          <figure><img class="radius-10 btmspace-10" src="${vo.poster }" alt="" style="width:350px;height:185px">
+	            <figcaption><a href="../movie/detail.do?mno=${vo.mno }">${vo.title }</a></figcaption>
+	          </figure>
+	        </li>
+        </c:forEach> 
       </ul>
     </div>
     <!-- ################################################################################################ -->
