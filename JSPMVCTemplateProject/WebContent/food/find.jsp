@@ -11,12 +11,12 @@
 <div class="wrapper row3">
   <div id="breadcrumb" class="clear"> 
     <!-- ################################################################################################ -->
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Lorem</a></li>
-      <li><a href="#">Ipsum</a></li>
-      <li><a href="#">Dolor</a></li>
-    </ul>
+    <form method=post action="../food/find.do">
+	    <ul>
+	      <li><input type=text name=loc sie=15 class="input-sm"></li>
+	      <li><button class="btn btn-sm btn-danger">검색</button></li>
+	    </ul>
+    </form>
     <!-- ################################################################################################ --> 
   </div>
 </div>
@@ -31,7 +31,7 @@
       <!-- ################################################################################################ -->
       <div id="gallery">
         <figure>
-          <header class="heading">&lt;${loc}&gt; 맛집 리스트</header>
+          <header class="heading">&lt;${loc }&gt;맛집 리스트</header>
           <ul class="nospace clear">
             <c:forEach var="vo" items="${list }" varStatus="s">
               <c:if test="${s.index%4==0}">
@@ -58,21 +58,16 @@
       <!-- ################################################################################################ -->
       <nav class="pagination">
         <ul>
-          <c:if test="${curpage>BLOCK }">
-           <li><a href="../recipe/list.do?page=${startPage-1 }">&laquo; Previous</a></li>
-          </c:if> 
-           <c:forEach var="i" begin="${startPage }" end="${endPage }">
+          <c:forEach var="i" begin="1" end="${totalpage }">
               <c:if test="${curpage==i }">
                 <c:set var="ss" value="class=current"/>
               </c:if>
               <c:if test="${curpage!=i }">
                 <c:set var="ss" value=""/>
               </c:if>
-              <li ${ss }><a href="../recipe/list.do?page=${i }">${i }</a></li>
+              <li ${ss }><a href="../food/find.do?page=${i }&loc=${loc}">${i }</a></li>
            </c:forEach>
-           <c:if test="${endPage<totalpage }">
-            <li><a href="../recipe/list.do?page=${endPage+1 }">Next &raquo;</a></li>
-            </c:if>
+          
         </ul>
       </nav>
       <!-- ################################################################################################ --> 

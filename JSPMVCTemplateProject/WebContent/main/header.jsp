@@ -34,8 +34,8 @@
       <li><a class="drop" href="#">Pages</a>
         <ul>
           <li><a href="../recipe/list.do">레시피</a></li>
-          <li><a href="pages/full-width.html">Full Width</a></li>
-          <li><a href="pages/sidebar-left.html">Sidebar Left</a></li>
+          <li><a href="../food/category.do">맛집</a></li>
+          <li><a href="../food/find.do">지역별 맛집</a></li>
           <li><a href="pages/sidebar-right.html">Sidebar Right</a></li>
           <li><a href="pages/basic-grid.html">Basic Grid</a></li>
         </ul>

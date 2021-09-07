@@ -104,6 +104,136 @@ public class FoodDAO {
     	}
     	return total;
     }
+    // 카테고리 읽기
+    public List<FoodCategoryVO> foodCategoryData()
+    {
+    	List<FoodCategoryVO> list=new ArrayList<FoodCategoryVO>();
+    	try
+    	{
+    		getConnection();
+    		String sql="SELECT cno,title,subject,poster "
+    				  +"FROM project_food_category";
+    		ps=conn.prepareStatement(sql);
+    		ResultSet rs=ps.executeQuery();
+    		// 소스표준화 : 스프링 , 마이바티스 , Jquery (Ajax) => 패턴 (소스 구현이 거의 비슷)
+    		//                           ============== Vue,React === MVC
+    		//                                   vuex , Redux,훅
+    		while(rs.next())
+    		{
+    			FoodCategoryVO vo=new FoodCategoryVO();
+    			vo.setCno(rs.getInt(1));
+    			vo.setTitle(rs.getString(2));
+    			vo.setSubject(rs.getString(3));
+    			vo.setPoster(rs.getString(4));
+    			list.add(vo);
+    		}
+    		rs.close();
+    	}catch(Exception e)
+    	{
+    		e.printStackTrace();
+    	}
+    	finally
+    	{
+    		disConnection();
+    	}
+    	return list;
+    }
+    // 카테고리별 맛집 목록
+    // 맛집 상세보기 
+    // 지역별 맛집 찾기 => Ajax
+    public List<FoodLocationVO> foodFindData(int page,int locno)
+    {
+    	List<FoodLocationVO> list=new ArrayList<FoodLocationVO>();
+    	try
+    	{
+    		getConnection();
+    		String sql="SELECT no,locno,name,poster,num "
+    				  +"FROM (SELECT no,locno,name,poster,rownum as num "
+    				  +"FROM (SELECT no,locno,name,poster "
+    				  +"FROM project_food_location WHERE locno=? ORDER BY no ASC)) "
+    				  +"WHERE num BETWEEN ? AND ? ";
+    				  
+    		ps=conn.prepareStatement(sql);
+    		int rowSize=12;
+    		int start=(rowSize*page)-(rowSize-1);
+    		int end=rowSize*page;
+    		ps.setInt(2, start);
+    		ps.setInt(3, end);
+    		ps.setInt(1, locno);
+    		
+    		ResultSet rs=ps.executeQuery();
+    		while(rs.next())
+    		{
+    			FoodLocationVO vo=new FoodLocationVO();
+    			vo.setNo(rs.getInt(1));
+    			vo.setLocno(rs.getInt(2));
+    			vo.setName(rs.getString(3));
+    			String s=rs.getString(4);
+    			s=s.substring(0,s.indexOf("^"));
+    			s=s.replace("#", "&");
+    			vo.setPoster(s);
+    			list.add(vo);
+    		}
+    		rs.close();
+    	}catch(Exception ex)
+    	{
+    		ex.printStackTrace();
+    	}
+    	finally
+    	{
+    		disConnection();
+    	}
+    	return list;
+    }
+    public int foodLoactionTotalPage(int locno)
+    {
+    	int total=0;
+    	try
+    	{
+    		getConnection();
+    		String sql="SELECT CEIL(COUNT(*)/12.0) FROM project_food_location "
+    				  +"WHERE locno=?";
+    		ps=conn.prepareStatement(sql);
+    		ps.setInt(1, locno);
+    		ResultSet rs=ps.executeQuery();
+    		rs.next();
+    		total=rs.getInt(1);
+    		rs.close();
+    	}catch(Exception ex)
+    	{
+    		ex.printStackTrace();
+    	}
+    	finally
+    	{
+    		disConnection();
+    	}
+    	return total;
+    }
+    // 검색어가 없는 경우 / 검색이 된 경우 => count=0 => 검색된 결과값 없다
+    public int foodLocationCountData(int locno)
+    {
+    	int count=0;
+    	try
+    	{
+    		getConnection();
+    		String sql="SELECT COUNT(*) FROM project_food_location "
+    				  +"WHERE locno=?";
+    		ps=conn.prepareStatement(sql);
+    		ps.setInt(1, locno);
+    		ResultSet rs=ps.executeQuery();
+    		rs.next();
+    		count=rs.getInt(1);
+    		rs.close();
+    	}catch(Exception ex)
+    	{
+    		ex.printStackTrace();
+    	}
+    	finally
+    	{
+    		disConnection();
+    	}
+    	return count;
+    }
 }
 
 
