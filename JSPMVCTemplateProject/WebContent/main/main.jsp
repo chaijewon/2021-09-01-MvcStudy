@@ -7,6 +7,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<!-- <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+<link rel="stylesheet" href="https://korean.visitseoul.net/humanframe/theme/visitseoul/assets/plugin/ionicons-2.0.1/css/ionicons.min.css?20170602_3" />
+<link rel="stylesheet" href="https://korean.visitseoul.net/humanframe/theme/visitseoul/assets/plugin/jquery.bxslider/jquery.bxslider.css?20170602_3" />
+<link rel="stylesheet" href="https://korean.visitseoul.net/humanframe/theme/visitseoul/assets/plugin/jquery-ui-1.11.4/jquery-ui.min.css?20170602_3" />
+<link rel="stylesheet" href="https://korean.visitseoul.net/humanframe/theme/visitseoul/assets/plugin/lightGallery/dist/css/lightgallery.css?20170602_3" />
+<link rel="stylesheet" href="https://korean.visitseoul.net/humanframe/theme/visitseoul/assets/style/base.css?bust=202107291909" />
+<link rel="stylesheet" href="https://korean.visitseoul.net/humanframe/theme/visitseoul/assets/style/sub.css?20201209114337" />
+<link rel="stylesheet" href="https://korean.visitseoul.net/humanframe/theme/visitseoul/assets/style/print.css" media="print" /> -->
+<link rel="stylesheet" href="https://korean.visitseoul.net/humanframe/theme/visitseoul/assets/style/guidebook.css?20201209114337" />
+<link rel="stylesheet" href="https://korean.visitseoul.net/humanframe/theme/visitseoul/assets/style/mayday_sub.css?20201209114337" />
+
 </head>
 <body id="top">
 <%--
