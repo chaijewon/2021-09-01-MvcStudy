@@ -22,13 +22,25 @@ $(function(){
 			height:200
 		}); 
 	});
+	// id,class(javascript/css) ,name(java에 값을 보낸다) 
+	$('#postBtn').click(function(){
+		 Shadowbox.open({
+			content:'../member/postfind.jsp',
+			player:'iframe',
+			title:'우편번호 찾기',
+			width:530,
+			height:350
+		}); 
+	});
 	$('#sendBtn').click(function(){
-		let id=$('#id').val();
+		// NOT NULL => 강제 입력 (오라클에서 오류 방지 => 유효성 검사)
+		//alert("click");
+		/* let id=$('#id').val();
 		if(id.trim()=="")
 		{
 			$('#id').focus();
 			return;
-		}
+		} */
 		
 		let pwd=$('#pwd').val();
 		if(pwd.trim()=="")
@@ -36,6 +48,52 @@ $(function(){
 			$('#pwd').focus();
 			return;
 		}
+		let pwd1=$('#pwd1').val();
+		if(pwd!=pwd1)
+		{
+			$('#pwd1').focus();
+			return;
+		}
+		
+		// 이름 
+		let name=$('#name').val();
+		if(name.trim()=="")
+		{
+			$('#name').focus();
+			return;
+		}
+		// 생년월일
+		let birth=$('#birthday').val();
+		if(birth.trim()=="")
+		{
+			$('#birthday').focus();
+			return;
+		}
+		// 이메일
+		let email=$('#email').val();
+		if(email.trim()=="")
+		{
+			$('#email').focus();
+			return;
+		}
+		// 주소 
+		/* let addr1=$('#addr1').val();
+		if(addr1.trim()=="")
+		{
+			$('#addr1').focus();
+			return;
+		} */
+		
+		// 전화번호
+		let tel2=$('#tel2').val();
+		if(tel2.trim()=="")
+		{
+			$('#tel2').focus();
+			return;
+		}
+		
+		// 정상수행 
+		$('#joinFrm').submit();
 	})
 })
 </script>
@@ -64,7 +122,7 @@ $(function(){
        <tr>
          <th class="text-right" width=15%>ID</th>
          <td width=85% class="inline">
-           <input type=text name=id size=20 class="input-sm" readonly id=id>
+           <input type=text name=id size=20 class="input-sm" disabled id=id>
            <input type=button value="아이디중복체크" id=idBtn class="btn btn-sm btn-danger">
          </td>
        </tr>
@@ -110,7 +168,7 @@ $(function(){
        <tr>
          <th class="text-right" width=15%>주소</th>
          <td width=85%>
-           <input type=text name=addr1 size=55 class="input-sm" id=addr1>
+           <input type=text name=addr1 size=55 class="input-sm" id=addr1 disabled>
          </td>
        </tr>
        <tr>
