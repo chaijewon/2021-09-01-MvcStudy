@@ -12,10 +12,10 @@
     <!-- ################################################################################################ -->
     <div class="flexslider basicslider">
       <ul class="slides">
-        <li><a href="#"><img class="radius-10" src="../images/demo/slides/01.png" alt=""></a></li>
-        <li><a href="#"><img class="radius-10" src="../images/demo/slides/02.png" alt=""></a></li>
-        <li><a href="#"><img class="radius-10" src="../images/demo/slides/03.png" alt=""></a></li>
-      </ul>
+        <li><a href="#"><img style="width:978px;height:400px" class="radius-10" src="../images/demo/slides/movie_img1.jpeg" alt=""></a></li>
+        <li><a href="#"><img style="width:978px;height:400px" class="radius-10" src="../images/demo/slides/movie_img2.jpeg" alt=""></a></li>
+        <li><a href="#"><img style="width:978px;height:400px" class="radius-10" src="../images/demo/slides/movie_img3.jpeg" alt=""></a></li>
+       </ul>
     </div>
     <!-- ################################################################################################ --> 
   </div>

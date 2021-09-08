@@ -34,7 +34,7 @@
       <li><a class="drop" href="#">회원</a>
         <c:if test="${sessionScope.id==null }"><%--로그인이 안된 상태 --%>
 	        <ul>
-	          <li><a href="pages/gallery.html">회원가입</a></li>
+	          <li><a href="../member/join.do">회원가입</a></li>
 	          <li><a href="pages/full-width.html">아이디찾기</a></li>
 	          <li><a href="pages/sidebar-left.html">비밀번호찾기</a></li>
 	        </ul>
@@ -49,14 +49,14 @@
       <!-- 맛집 -->
       <li><a class="drop" href="#">맛집</a>
         <ul>
-          <li><a href="pages/gallery.html">맛집 목록</a></li>
+          <li><a href="../food/food_main.do">맛집 목록</a></li>
           <li><a href="pages/full-width.html">지역별 맛집 찾기</a></li>
         </ul>
       </li>
       <!-- 레시피 -->
       <li><a class="drop" href="#">레시피</a>
         <ul>
-          <li><a href="pages/gallery.html">레시피 목록</a></li>
+          <li><a href="../recipe/recipe_main.do">레시피 목록</a></li>
           <li><a href="pages/full-width.html">쉐프</a></li>
           <li><a href="pages/full-width.html">레시피 만들기</a></li>
         </ul>
@@ -64,13 +64,15 @@
       <!-- 영화 -->
       <li><a class="drop" href="#">영화</a>
         <ul>
-          <li><a href="pages/gallery.html">현재상영영화</a></li>
+          <li><a href="../movie/movie_main.do">영화 목록</a></li>
+          <li><a href="../movie/movie_main.do">현재상영영화</a></li>
           <li><a href="pages/full-width.html">개봉예정영화</a></li>
         </ul>
       </li>
       <!-- 서울 여행  -->
       <li><a class="drop" href="#">서울여행</a>
         <ul>
+          <li><a href="../seoul/seoul_main.do">서울여행</a></li>
           <li><a href="pages/gallery.html">명소</a></li>
           <li><a href="pages/gallery.html">자연&관광</a></li>
           <li><a href="pages/full-width.html">호텔</a></li>
