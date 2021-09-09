@@ -46,7 +46,7 @@ File: Layout CSS
 .container{padding:50px 0 80px;}
 
 /* Content */
-.container .content{width:1200px}
+.container .content{width:1500px}
 
 .sectiontitle{display:block; position:relative; margin:0 0 40px 0; padding:0 0 10px 0; border-bottom:1px solid;}
 .sectiontitle::after{display:block; position:absolute; bottom:-2px; left:0; width:80px; height:3px; content:"";}
@@ -132,9 +132,10 @@ nav ul, nav ol{margin:0; padding:0; list-style:none;}
 #mainav .drop::after, #mainav li li .drop::after, #breadcrumb li a::after, .sidebar nav a::after{position:absolute; font-family:"FontAwesome"; font-size:10px; line-height:10px;}
 
 /* Top Navigation */
-#mainav{border-radius:10px; line-height:normal;}
+#mainav{border-radius:10px; line-height:normal;width:1500px}
 #mainav ul:first-child > li:first-child a{border-radius:10px 0 0 10px;}
-#mainav ul ul{z-index:9999; position:absolute; width:180px;}
+#mainav ul{padding: 0px}
+#mainav ul ul{z-index:9999; position:absolute; width:150px;}
 #mainav ul ul ul{left:100%; top:0;}
 #mainav li{display:inline-block; float:left; position:relative; margin:0; padding:0; text-transform:uppercase;}
 #mainav li:last-child{margin-right:0;}
@@ -238,7 +239,7 @@ label span{color:#FF0000; background-color:inherit;}
 .row1, .row1 a{color:#888888; background-color:#FFFFFF;}
 .row1{border-color:#E05149;}
 .row2{color:#888888; background-color:#FFFFFF;}
-.row2 #mainav ul.clear{width:1200px}
+.row2 #mainav ul.clear{width:1500px}
 .row3{color:#888888; background-color:#F2F2F2;}
 .row4{color:#B4B4B4; background-color:#232323; border-color:#E05149;}
 .row5, .row5 a{color:#B4B4B4; background-color:#232323;}
@@ -306,18 +307,18 @@ table a, #comments a{background-color:inherit;}
 
 /* Media Queries
 --------------------------------------------------------------------------------------------------------------- */
-@-ms-viewport{width:device-width;}
+/*@-ms-viewport{width:device-width;}*/
 
 
 /* Smartphone + Tablet
 --------------------------------------------------------------------------------------------------------------- */
-@media screen and (min-width:180px) and (max-width:1300px) {
+@media screen and (min-width:180px) and (max-width:2000px) {
 	.imgl, .imgr{display:inline-block; float:none; margin:0 0 10px 0;}
 	.fl_left, .fl_right{display:block; float:none;}
 	.one_half, .one_third, .two_third, .one_quarter, .two_quarter, .three_quarter{display:block; float:none; width:auto; margin:0 0 30px 0; padding:0;}
 }
 
-@media screen and (min-width:180px) and (max-width:1300px) {
+@media screen and (min-width:180px) and (max-width:2000px) {
 	#header, #mainav, #breadcrumb, #slider, .container, #footer, #copyright{max-width:95%;}
 
 	#header{text-align:center;}
@@ -342,14 +343,14 @@ table a, #comments a{background-color:inherit;}
 
 /* Max Wrapper Width - Laptop, Desktop etc.
 --------------------------------------------------------------------------------------------------------------- */
-@media screen and (min-width:978px) {
+@media screen and (min-width:1500px) {
 	#header, #mainav, #breadcrumb, #slider, .container, #footer, #copyright{max-width:978px;}
 }
 
 
 /* Other
 --------------------------------------------------------------------------------------------------------------- */
-@media screen and (max-width:650px) {
+@media screen and (max-width:1500px) {
 	.scrollable{display:block; width:100%; margin:0 0 30px 0; padding:0 0 15px 0; overflow:auto; overflow-x:scroll;}
 	.scrollable table{margin:0; padding:0; white-space:nowrap;}
 	

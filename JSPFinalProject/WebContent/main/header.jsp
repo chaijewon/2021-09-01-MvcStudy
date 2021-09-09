@@ -60,15 +60,8 @@ $(function(){
 });
 </script>
 <style type="text/css">
-.row2{
+row_1{
   width:1500px;
-}
-#mainnav{
-  width:1500px;
-}
-
-#mainnav ul.clear{
-   width:1500px;
 }
 </style>
 </head>
@@ -121,10 +114,11 @@ $(function(){
 <!-- ################################################################################################ --> 
 <!-- ################################################################################################ --> 
 <!-- ################################################################################################ -->
-<div class="wrapper row2">
-  <nav id="mainav" class="clear"> 
+<div class="wrapper row2 row_1" style="width:1300px">
+  <nav id="mainav" class="clear" style="width:1300px"> 
+  
     <!-- ################################################################################################ -->
-    <ul class="clear">
+    <ul class="clear" style="width:1300px">
       <li class="active"><a href="../main/main.do">홈</a></li>
       <li><a class="drop" href="#">회원</a>
         <c:if test="${sessionScope.id==null }"><%--로그인이 안된 상태 --%>
@@ -184,21 +178,17 @@ $(function(){
         </ul>
       </li>
       <c:if test="${sessionScope.id!=null }">
-	      <li><a class="drop" href="#">예약시스템</a>
+	      <li><a class="drop" href="#">시스템</a>
 	        <ul>
 	          <li><a href="pages/gallery.html">맛집예약</a></li>
 	          <li><a href="pages/gallery.html">영화예매</a></li>
-	        </ul>
-	      </li>
-	      <li><a class="drop" href="#">추천시스템</a>
-	        <ul>
 	          <li><a href="pages/gallery.html">맛집추천</a></li>
 	          <li><a href="pages/gallery.html">영화추천</a></li>
 	          <li><a href="pages/gallery.html">레시피추천</a></li>
 	        </ul>
 	      </li>
       </c:if>
-      <li><a href="#">오늘의 뉴스</a></li>
+       <li><a href="#">뉴스</a></li>
       <c:if test="${sessionScope.id!=null }">
         <c:if test="${admin=='n' }">
           <li><a href="#">마이페이지</a></li>
