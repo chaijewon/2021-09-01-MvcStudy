@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 <body>
 <div class="wrapper row1">
@@ -15,10 +16,40 @@
       <h1><a href="../main/main.do">추천시스템  & 예약시스템</a></h1>
     </div>
     <div class="fl_right">
-      <ul class="inline">
-        <!-- <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-        <li><i class="fa fa-envelope-o"></i> info@domain.com</li> -->
-      </ul>
+      <!-- <ul class="inline">
+        <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
+        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+      </ul> -->
+      <c:if test="${sessionScope.id==null }"><%--로그인 안된 상태 --%>
+	      <table class="table" style="border:none">
+	        <tr class="inline">
+	          <td style="border:none">
+	            ID:<input type=text name=id id=log_id size=15 class="input-sm">
+	          </td>
+	          <td style="border:none">
+	            Password:<input type=password name=pwd id=log_pwd size=15 class="input-sm">
+	          </td>
+	          <td style="border:none">
+	            <input type=button id="logBtn" value="로그인" class="btn btn-sm btn-danger">
+	          </td>
+	        </tr>
+	      </table>
+      </c:if>
+      <c:if test="${sessionScope.id!=null }"><%--로그인 된 상태 --%>
+	      <table class="table" style="border:none">
+	        <tr class="inline">
+	          <td style="border:none">
+	            ${sessionScope.name }(${sessionScope.admin=='y'?"관리자":"일반유저" })
+	          </td>
+	          <td style="border:none">
+	                     로그인 중입니다!!
+	          </td>
+	          <td style="border:none">
+	            <input type=button id="logoutBtn" value="로그아웃" class="btn btn-sm btn-danger">
+	          </td>
+	        </tr>
+	      </table>
+      </c:if>
     </div>
     <!-- ################################################################################################ --> 
   </header>

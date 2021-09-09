@@ -103,10 +103,9 @@ $(function(){
   <div id="breadcrumb" class="clear"> 
     <!-- ################################################################################################ -->
     <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Lorem</a></li>
-      <li><a href="#">Ipsum</a></li>
-      <li><a href="#">Dolor</a></li>
+      <li><a href="#">홈</a></li>
+      <li><a href="#">회원</a></li>
+      <li><a href="#">회원가입</a></li>
     </ul>
     <!-- ################################################################################################ --> 
   </div>
@@ -122,7 +121,7 @@ $(function(){
        <tr>
          <th class="text-right" width=15%>ID</th>
          <td width=85% class="inline">
-           <input type=text name=id size=20 class="input-sm" disabled id=id>
+           <input type=text name=id size=20 class="input-sm" readonly id=id>
            <input type=button value="아이디중복체크" id=idBtn class="btn btn-sm btn-danger">
          </td>
        </tr>
@@ -168,7 +167,7 @@ $(function(){
        <tr>
          <th class="text-right" width=15%>주소</th>
          <td width=85%>
-           <input type=text name=addr1 size=55 class="input-sm" id=addr1 disabled>
+           <input type=text name=addr1 size=55 class="input-sm" id=addr1 readonly>
          </td>
        </tr>
        <tr>

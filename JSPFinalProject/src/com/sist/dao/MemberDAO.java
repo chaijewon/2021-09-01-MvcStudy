@@ -3,6 +3,7 @@ import java.util.*;
 import java.sql.*;
 import javax.sql.*;
 
+import com.sist.vo.MemberVO;
 import com.sist.vo.ZipcodeVO;
 
 import javax.naming.*;
@@ -130,6 +131,36 @@ public class MemberDAO {
 	  return count;
   }
   // 실제 회원가입 
+  public void memberJoinInsert(MemberVO vo)
+  {
+	  try
+	  {
+		  getConnection();
+		  String sql="INSERT INTO project_member VALUES(?,?,?,?,?,"
+				   +"?,?,?,?,?,'n')"; // admin(n=일반,y=관리자)
+		  ps=conn.prepareStatement(sql);
+		  ps.setString(1, vo.getId());
+		  ps.setString(2, vo.getPwd());
+		  ps.setString(3, vo.getName());
+		  ps.setString(4, vo.getSex());
+		  ps.setString(5, vo.getBirthday());
+		  
+		  ps.setString(6, vo.getEmail());
+		  ps.setString(7, vo.getPost());
+		  ps.setString(8, vo.getAddr1());
+		  ps.setString(9, vo.getAddr2());
+		  ps.setString(10, vo.getTel());
+		  
+		  ps.executeUpdate();
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+	  }
+	  finally
+	  {
+		  disConnection();
+	  }
+  }
   // 로그인 
   // 회원수정 
   // 회원탈퇴
