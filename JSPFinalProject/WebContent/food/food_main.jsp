@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,54 +52,59 @@
       </li>
     </ul>
     <!-- ################################################################################################ -->
-    <h2 class="sectiontitle">Lorem Ipsum Dolor</h2>
+    <h2 class="sectiontitle">믿고 보는 맛집 리스트</h2>
     <!-- ################################################################################################ -->
     <div class="flexslider carousel basiccarousel btmspace-80">
       <ul class="slides">
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure><img class="radius-10 btmspace-10" src="../images/demo/320x185.png" alt="">
-            <figcaption><a href="#">Lorem Ipsum Dolor Sit Amet</a></figcaption>
-          </figure>
-        </li>
+       <c:forEach var="vo" items="${list }" varStatus="s">
+        <c:if test="${s.index>=0 && s.index<12 }">
+	         <li>
+	          <figure><img class="radius-10 btmspace-10" src="${vo.poster }" style="width:320px;height:185px">
+	            <figcaption><a href="../food/food_list.do?cno=${vo.cno }">${vo.title }</a></figcaption>
+	          </figure>
+	         </li>
+         </c:if>
+       </c:forEach>  
+      </ul>
+    </div>
+    <h2 class="sectiontitle">지역별 인기 맛집</h2>
+    <!-- ################################################################################################ -->
+    <div class="flexslider carousel basiccarousel btmspace-80">
+      <ul class="slides">
+        <c:forEach var="vo" items="${list }" varStatus="s">
+        <c:if test="${s.index>=12 && s.index<18 }">
+	         <li>
+	          <figure><img class="radius-10 btmspace-10" src="${vo.poster }" style="width:320px;height:185px">
+	            <figcaption><a href="../food/food_list.do?cno=${vo.cno }">${vo.title }</a></figcaption>
+	          </figure>
+	         </li>
+         </c:if>
+       </c:forEach>  
+      </ul>
+    </div>
+    <h2 class="sectiontitle">메뉴별 인기 맛집</h2>
+    <!-- ################################################################################################ -->
+    <div class="flexslider carousel basiccarousel btmspace-80">
+      <ul class="slides">
+        <c:forEach var="vo" items="${list }" varStatus="s">
+         <c:if test="${s.index>=18 && s.index<30 }">
+	         <li>
+	          <figure><img class="radius-10 btmspace-10" src="${vo.poster }" style="width:320px;height:185px">
+	            <figcaption><a href="../food/food_list.do?cno=${vo.cno }">${vo.title }</a></figcaption>
+	          </figure>
+	         </li>
+         </c:if>
+       </c:forEach>  
       </ul>
     </div>
     <!-- ################################################################################################ -->
-    <h2 class="sectiontitle">Lorem Ipsum Dolor</h2>
+    <h2 class="sectiontitle">최신 방문 맛집</h2>
     <!-- ################################################################################################ -->
-    <ul class="nospace group">
-      <li class="one_half first">
-        <article><img class="imgl radius-10" src="../images/demo/100x100.gif" alt="">
-          <h6 class="heading"><a href="#">Lorem Ipsum Dolor</a></h6>
-          <p>Aenean semper elementum tellus, ut placerat leo. Quisque vehicula, urna sit amet.</p>
-        </article>
-      </li>
-      <li class="one_half">
-        <article><img class="imgl radius-10" src="../images/demo/100x100.gif" alt="">
-          <h6 class="heading"><a href="#">Lorem Ipsum Dolor</a></h6>
-          <p>Aenean semper elementum tellus, ut placerat leo. Quisque vehicula, urna sit amet.</p>
-        </article>
-      </li>
-    </ul>
+	    <div class="inline">
+	     <c:forEach var="cvo" items="${fList }">
+	      <img class="radius-10" src="${cvo.poster }" style="width:100px;height:100px">
+	     </c:forEach>
+	    </div>
     <!-- ################################################################################################ --> 
     <!-- / main body -->
     <div class="clear"></div>
