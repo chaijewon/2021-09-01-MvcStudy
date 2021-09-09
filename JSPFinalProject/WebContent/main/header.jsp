@@ -7,6 +7,70 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	// 로그인 처리
+	$('#logBtn').click(function(){
+		let id=$('#log_id').val(); // 사용자가 입력한 값을 읽어 온다 
+		if(id.trim()=="")
+		{
+			$('#log_id').focus();
+			return;
+		}
+		let pwd=$('#log_pwd').val();
+		if(pwd.trim()=="")
+		{
+			$('#log_pwd').focus();
+			return;
+		}
+		// 입력된 경우 데이터를 전송 
+		$.ajax({
+			type:'post',
+			url:'../member/login.do',
+			data:{"id":id,"pwd":pwd},
+			// 결과값 => NOID , NOPWD , OK
+			success:function(res)
+			{
+				let result=res.trim();
+				if(result=='NOID') //id가 없는 상태
+				{
+					alert("아이디가 존재하지 않습니다\n다시 입력하세요");
+					$('#log_id').val("");
+					$('#log_pwd').val("");
+					$('#log_id').focus();
+				}
+				else if(result=='NOPWD') // 비빌번호가 틀리다
+				{
+					alert("비밀번호가 틀립니다\n다시 입력하세요");
+					$('#log_pwd').val("");
+					$('#log_pwd').focus();
+				}
+				else // 로그인 
+				{
+					location.href="../main/main.do";
+				}
+			}
+		});
+	})
+	// 로그아웃 처리
+	$('#logoutBtn').click(function(){
+		location.href="../member/logout.do";
+	})
+});
+</script>
+<style type="text/css">
+.row2{
+  width:1500px;
+}
+#mainnav{
+  width:1500px;
+}
+
+#mainnav ul.clear{
+   width:1500px;
+}
+</style>
 </head>
 <body>
 <div class="wrapper row1">
