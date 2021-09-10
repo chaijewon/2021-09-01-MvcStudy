@@ -204,7 +204,7 @@ public class FoodDAO {
 		  {
 			  getConnection();
 			  String sql="SELECT no,poster,name,score,address,tel,type,"
-					    +"price,parking,time,menu,good,soso,bad "
+					    +"price,parking,time,menu,good,soso,bad,cno "
 					    +"FROM project_food_house "
 					    +"WHERE no=?";
 			  ps=conn.prepareStatement(sql);
@@ -225,6 +225,7 @@ public class FoodDAO {
 			  vo.setGood(rs.getInt(12));
 			  vo.setSoso(rs.getInt(13));
 			  vo.setBad(rs.getInt(14));
+			  vo.setCno(rs.getInt(15));
 			  rs.close();
 		  }catch(Exception ex)
 		  {
@@ -239,16 +240,98 @@ public class FoodDAO {
 	  public List<SeoulLocationVO> foodSeoulLocationData(String addr)
 	  {
 		  List<SeoulLocationVO> list=new ArrayList<SeoulLocationVO>();
+		  try
+		  {
+			  getConnection();
+			  String sql="SELECT no,title,poster,rownum "
+					    +"FROM (SELECT no,title,poster "
+					    +"FROM seoul_location WHERE address LIKE '%'||?||'%' ORDER BY no ASC) "
+					    +"WHERE rownum<=5";
+			  ps=conn.prepareStatement(sql);
+			  ps.setString(1, addr);
+			  ResultSet rs=ps.executeQuery();
+			  while(rs.next())
+			  {
+				  SeoulLocationVO vo=new SeoulLocationVO();
+				  vo.setNo(rs.getInt(1));
+				  vo.setTitle(rs.getString(2));
+				  vo.setPoster(rs.getString(3));
+				  list.add(vo);
+			  }
+			  rs.close();
+		  }catch(Exception ex)
+		  {
+			  ex.printStackTrace();
+		  }
+		  finally
+		  {
+			  disConnection();
+		  }
 		  return list;
 	  }
 	  public List<SeoulHotelVO> foodSeoulHotelData(String addr)
 	  {
 		  List<SeoulHotelVO> list=new ArrayList<SeoulHotelVO>();
+		  
+		  try
+		  {
+			  getConnection();
+			  String sql="SELECT no,name,poster,rownum "
+					    +"FROM (SELECT no,name,poster "
+					    +"FROM seoul_hotel WHERE address LIKE '%'||?||'%' ORDER BY no ASC) "
+					    +"WHERE rownum<=5";
+			  ps=conn.prepareStatement(sql);
+			  ps.setString(1, addr);
+			  ResultSet rs=ps.executeQuery();
+			  while(rs.next())
+			  {
+				  SeoulHotelVO vo=new SeoulHotelVO();
+				  vo.setNo(rs.getInt(1));
+				  vo.setName(rs.getString(2));
+				  vo.setPoster(rs.getString(3));
+				  list.add(vo);
+			  }
+			  rs.close();
+		  }catch(Exception ex)
+		  {
+			  ex.printStackTrace();
+		  }
+		  finally
+		  {
+			  disConnection();
+		  }
 		  return list;
 	  }
 	  public List<SeoulNatureVO> foodSeoulNatureData(String addr)
 	  {
 		  List<SeoulNatureVO> list=new ArrayList<SeoulNatureVO>();
+		  try
+		  {
+			  getConnection();
+			  String sql="SELECT no,title,poster,rownum "
+					    +"FROM (SELECT no,title,poster "
+					    +"FROM seoul_nature WHERE address LIKE '%'||?||'%' ORDER BY no ASC) "
+					    +"WHERE rownum<=5";
+			  ps=conn.prepareStatement(sql);
+			  ps.setString(1, addr);
+			  ResultSet rs=ps.executeQuery();
+			  while(rs.next())
+			  {
+				  SeoulNatureVO vo=new SeoulNatureVO();
+				  vo.setNo(rs.getInt(1));
+				  vo.setTitle(rs.getString(2));
+				  vo.setPoster(rs.getString(3));
+				  list.add(vo);
+			  }
+			  rs.close();
+		  }catch(Exception ex)
+		  {
+			  ex.printStackTrace();
+		  }
+		  finally
+		  {
+			  disConnection();
+		  }
 		  return list;
 	  }
 	  // 레시피 

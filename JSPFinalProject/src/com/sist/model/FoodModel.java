@@ -134,6 +134,12 @@ public class FoodModel {
 	   vo.setAddr2(addr2);
 	   request.setAttribute("vo", vo);
 	   // 1. 여행(명소,호텔,자연) , 2. 댓글 
+	   List<SeoulLocationVO> aList=dao.foodSeoulLocationData(temp);
+	   request.setAttribute("aList", aList);
+	   List<SeoulHotelVO> bList=dao.foodSeoulHotelData(temp);
+	   request.setAttribute("bList", bList);
+	   List<SeoulNatureVO> cList=dao.foodSeoulNatureData(temp);
+	   request.setAttribute("cList", cList);
 	   request.setAttribute("main_jsp", "../food/food_detail.jsp");
 	   return "../main/main.jsp";
    }

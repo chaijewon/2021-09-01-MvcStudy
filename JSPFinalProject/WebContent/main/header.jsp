@@ -160,7 +160,7 @@ $(function(){
           <li><a href="pages/gallery.html">명소</a></li>
           <li><a href="pages/gallery.html">자연&관광</a></li>
           <li><a href="pages/full-width.html">호텔</a></li>
-          <li><a href="pages/full-width.html">날씨</a></li>
+          <li><a href="../seoul/seoul_weather.do">날씨</a></li>
         </ul>
       </li>
       <!-- 커뮤니티 : 자료실 ,묻고답하기 , 자유게시판  -->
@@ -183,7 +183,7 @@ $(function(){
 	        </ul>
 	      </li>
       </c:if>
-       <li><a href="#">뉴스</a></li>
+       <li><a href="../news/news.do">뉴스</a></li>
       <c:if test="${sessionScope.id!=null }">
         <c:if test="${admin=='n' }">
           <li><a href="#">마이페이지</a></li>
