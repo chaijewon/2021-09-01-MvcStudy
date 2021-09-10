@@ -5,6 +5,9 @@ import javax.sql.*;
 
 import com.sist.vo.CategoryVO;
 import com.sist.vo.FoodVO;
+import com.sist.vo.SeoulHotelVO;
+import com.sist.vo.SeoulLocationVO;
+import com.sist.vo.SeoulNatureVO;
 
 import javax.naming.*;
 public class FoodDAO {
@@ -176,6 +179,79 @@ public class FoodDAO {
 		  }
 		  return vo;
 	  }
+	  // 맛집 상세보기 
+	  /*
+	   *    NO      NOT NULL NUMBER         
+			CNO              NUMBER         
+			POSTER  NOT NULL VARCHAR2(2000) 
+			NAME    NOT NULL VARCHAR2(300)  
+			SCORE   NOT NULL NUMBER(2,1)    
+			ADDRESS NOT NULL VARCHAR2(1000) 
+			TEL     NOT NULL VARCHAR2(20)   
+			TYPE    NOT NULL VARCHAR2(100)  
+			PRICE            VARCHAR2(100)  
+			PARKING          VARCHAR2(100)  
+			TIME             VARCHAR2(100)  
+			MENU             VARCHAR2(4000) 
+			GOOD             NUMBER         
+			SOSO             NUMBER         
+			BAD              NUMBER   
+	   */
+	  public FoodVO foodDetailData(int no)
+	  {
+		  FoodVO vo=new FoodVO();
+		  try
+		  {
+			  getConnection();
+			  String sql="SELECT no,poster,name,score,address,tel,type,"
+					    +"price,parking,time,menu,good,soso,bad "
+					    +"FROM project_food_house "
+					    +"WHERE no=?";
+			  ps=conn.prepareStatement(sql);
+			  ps.setInt(1, no);
+			  ResultSet rs=ps.executeQuery();
+			  rs.next();
+			  vo.setNo(rs.getInt(1));
+			  vo.setPoster(rs.getString(2));
+			  vo.setName(rs.getString(3));
+			  vo.setScore(rs.getDouble(4));
+			  vo.setAddress(rs.getString(5));
+			  vo.setTel(rs.getString(6));
+			  vo.setType(rs.getString(7));
+			  vo.setPrice(rs.getString(8));
+			  vo.setParking(rs.getString(9));
+			  vo.setTime(rs.getString(10));
+			  vo.setMenu(rs.getString(11));
+			  vo.setGood(rs.getInt(12));
+			  vo.setSoso(rs.getInt(13));
+			  vo.setBad(rs.getInt(14));
+			  rs.close();
+		  }catch(Exception ex)
+		  {
+			  ex.printStackTrace();
+		  }
+		  finally
+		  {
+			  disConnection();
+		  }
+		  return vo;
+	  }
+	  public List<SeoulLocationVO> foodSeoulLocationData(String addr)
+	  {
+		  List<SeoulLocationVO> list=new ArrayList<SeoulLocationVO>();
+		  return list;
+	  }
+	  public List<SeoulHotelVO> foodSeoulHotelData(String addr)
+	  {
+		  List<SeoulHotelVO> list=new ArrayList<SeoulHotelVO>();
+		  return list;
+	  }
+	  public List<SeoulNatureVO> foodSeoulNatureData(String addr)
+	  {
+		  List<SeoulNatureVO> list=new ArrayList<SeoulNatureVO>();
+		  return list;
+	  }
+	  // 레시피 
 }
 
 

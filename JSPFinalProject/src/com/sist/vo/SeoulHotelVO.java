@@ -1,4 +1,4 @@
-package com.sist.dao;
+package com.sist.vo;
 /*
  *  NO      NOT NULL NUMBER         
 	NAME    NOT NULL VARCHAR2(100)  

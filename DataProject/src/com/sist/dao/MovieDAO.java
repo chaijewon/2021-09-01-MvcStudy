@@ -283,13 +283,14 @@ public class MovieDAO {
 	   try
 	   {
 		   getConnection();
-		   String sql="INSERT INTO seoul_hotel VALUES(?,?,?,?,?)";
+		   String sql="INSERT INTO seoul_hotel VALUES(?,?,?,?,?,?)";
 		   ps=conn.prepareStatement(sql);
 		   ps.setInt(1, vo.getNo());
 		   ps.setString(2, vo.getName());
 		   ps.setDouble(3, vo.getScore());
 		   ps.setString(4, vo.getAddress());
 		   ps.setString(5, vo.getPoster());
+		   ps.setString(6, vo.getImages());
 		   ps.executeUpdate();
 	   }catch(Exception ex)
 	   {

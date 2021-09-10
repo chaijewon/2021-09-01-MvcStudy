@@ -20,6 +20,20 @@ public class FoodVO {
    private int no,cno,good,soso,bad;
    private String poster,name,address,tel,type,price,parking,time,menu;
    private double score;
+   private String addr1,addr2;//오라클과 상관이 없다 => JSP출력 
+   
+	public String getAddr1() {
+	    return addr1;
+	}
+	public void setAddr1(String addr1) {
+		this.addr1 = addr1;
+	}
+	public String getAddr2() {
+		return addr2;
+	}
+	public void setAddr2(String addr2) {
+		this.addr2 = addr2;
+	}
 	public int getNo() {
 		return no;
 	}
