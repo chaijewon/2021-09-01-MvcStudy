@@ -239,6 +239,100 @@ public class MovieDAO {
 	   }
 	   return list;
    }
+   // ==> 영화 => 맛집 => 레시피 => 명소 ,호텔 , 자연(관광) => 일정(코스) (추천)
+   // 명소 
+   /*
+    *  NO      NOT NULL NUMBER         
+	TITLE   NOT NULL VARCHAR2(200)  
+	POSTER  NOT NULL VARCHAR2(500)  
+	MSG     NOT NULL VARCHAR2(4000) 
+	ADDRESS NOT NULL VARCHAR2(300)   
+    */
+   public void seoulLocationInsert(SeoulLocationVO vo)
+   {
+	   try
+	   {
+		   getConnection();
+		   String sql="INSERT INTO seoul_location VALUES(?,?,?,?,?)";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, vo.getNo());
+		   ps.setString(2, vo.getTitle());
+		   ps.setString(3, vo.getPoster());
+		   ps.setString(4, vo.getMsg());
+		   ps.setString(5, vo.getAddress());
+		   ps.executeUpdate();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+   }
+   // 호텔
+   /*
+    *  NO      NOT NULL NUMBER         
+	NAME    NOT NULL VARCHAR2(100)  
+	SCORE            NUMBER(2,1)    
+	ADDRESS NOT NULL VARCHAR2(300)  
+	POSTER  NOT NULL VARCHAR2(4000) 
+    */
+   public void seoulHotelInsert(SeoulHotelVO vo)
+   {
+	   try
+	   {
+		   getConnection();
+		   String sql="INSERT INTO seoul_hotel VALUES(?,?,?,?,?)";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, vo.getNo());
+		   ps.setString(2, vo.getName());
+		   ps.setDouble(3, vo.getScore());
+		   ps.setString(4, vo.getAddress());
+		   ps.setString(5, vo.getPoster());
+		   ps.executeUpdate();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+   }
+   // 자연 
+   /*
+    *  NO      NOT NULL NUMBER         
+TITLE   NOT NULL VARCHAR2(200)  
+POSTER  NOT NULL VARCHAR2(300)  
+MSG     NOT NULL VARCHAR2(4000) 
+ADDRESS NOT NULL VARCHAR2(300)
+    */
+   public void seoulNatureInsert(SeoulNatureVO vo)
+   {
+	   try
+	   {
+		   getConnection();
+		   String sql="INSERT INTO seoul_nature VALUES(?,?,?,?,?)";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, vo.getNo());
+		   ps.setString(2, vo.getTitle());
+		   ps.setString(3, vo.getPoster());
+		   ps.setString(4, vo.getMsg());
+		   ps.setString(5, vo.getAddress());
+		   ps.executeUpdate();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+   }
+   // 레시피 
+   // 레시피 상세
+   // 쉐프 
    
 }
 
