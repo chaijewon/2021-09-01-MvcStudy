@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -59,11 +58,7 @@ $(function(){
 	})
 });
 </script>
-<style type="text/css">
-row_1{
-  width:1500px;
-}
-</style>
+
 </head>
 <body>
 <div class="wrapper row1">
@@ -114,11 +109,11 @@ row_1{
 <!-- ################################################################################################ --> 
 <!-- ################################################################################################ --> 
 <!-- ################################################################################################ -->
-<div class="wrapper row2 row_1" style="width:1300px">
-  <nav id="mainav" class="clear" style="width:1300px"> 
+<div class="wrapper row2">
+  <nav id="mainav" class="clear"> 
   
     <!-- ################################################################################################ -->
-    <ul class="clear" style="width:1300px">
+    <ul class="clear">
       <li class="active"><a href="../main/main.do">홈</a></li>
       <li><a class="drop" href="#">회원</a>
         <c:if test="${sessionScope.id==null }"><%--로그인이 안된 상태 --%>

@@ -25,8 +25,9 @@
 <div class="wrapper row3">
   <main class="container clear"> 
     <!-- main body --> 
+    <!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db0485ed4f0d0ece879a4510ed7f48e6&libraries=services"></script> -->
     <!-- ################################################################################################ -->
-    <div class="content three_quarter first"> 
+    <div class="content three_quarter first"> <!-- two_quarter -->
       <!-- ################################################################################################ -->
       <h1>&lt;h1&gt; to &lt;h6&gt; - Headline Colour and Size Are All The Same</h1>
       <img class="imgr borderedbox inspace-5" src="../images/demo/imgr.gif" alt="">
@@ -150,7 +151,7 @@
     </div>
     <!-- ################################################################################################ --> 
     <!-- ################################################################################################ -->
-    <div class="sidebar one_quarter"> 
+    <div class="sidebar one_quarter"> <!-- two-quarter -->
       <!-- ################################################################################################ -->
       <h6>Lorem ipsum dolor</h6>
       <nav class="sdb_holder">
