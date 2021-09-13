@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,40 +154,45 @@
 		    } 
 		});    
 		</script>
-		<h3>근처 명소</h3>
-		<table class="table">
-		 <tr>
-		  <c:forEach var="avo" items="${aList }">
-		    <td>
-		     <img src="${avo.poster }" width=100% title="${avo.title }">
-		    </td>
-		  </c:forEach>
-		 </tr>
-		</table>
+		<c:if test="${fn:length(aList)>0 }">
+			<h3>근처 명소</h3>
+			<table class="table">
+			 <tr>
+			  <c:forEach var="avo" items="${aList }">
+			    <td>
+			     <img src="${avo.poster }" style="width:120px;height:85px" title="${avo.title }">
+			    </td>
+			  </c:forEach>
+			 </tr>
+			</table>
+			<hr>
+		</c:if>
+		<c:if test="${fn:length(bList)>0 }">
+			<h3>근처 호텔</h3>
+			<table class="table">
+			 <tr>
+			  <c:forEach var="bvo" items="${bList }">
+			    <td>
+			     <img src="${bvo.poster }" style="width:120px;height:85px" title="${bvo.name }">
+			    </td>
+			  </c:forEach>
+			 </tr>
+			</table>
 		<hr>
-		<h3>근처 호텔</h3>
-		<table class="table">
-		 <tr>
-		  <c:forEach var="bvo" items="${bList }">
-		    <td>
-		     <img src="${bvo.poster }" width=100% title="${bvo.name }">
-		    </td>
-		  </c:forEach>
-		 </tr>
-		</table>
-		<hr>
-		<h3>근처 자연</h3>
-		<table class="table">
-		 <tr>
-		  <c:forEach var="cvo" items="${cList }">
-		    <td>
-		     <img src="${cvo.poster }" width=100% title="${cvo.title }">
-		    </td>
-		  </c:forEach>
-		 </tr>
-		</table>
-		<hr>
-		
+		</c:if>
+		<c:if test="${fn:length(cList)>0 }">
+			<h3>근처 자연</h3>
+			<table class="table">
+			 <tr>
+			  <c:forEach var="cvo" items="${cList }">
+			    <td>
+			     <img src="${cvo.poster }" style="width:120px;height:85px" title="${cvo.title }">
+			    </td>
+			  </c:forEach>
+			 </tr>
+			</table>
+			<hr>
+		</c:if>
     </div>
     <div class="clear"></div>
   </main>

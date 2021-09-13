@@ -30,22 +30,24 @@
     <ul class="nospace group btmspace-80">
       <li class="one_third first">
         <article class="service"><i class="icon fa fa-ambulance"></i>
-          <h6 class="heading"><a href="#">Lorem Ipsum Dolor</a></h6>
-          <p>Aenean semper elementum tellus, ut placerat leo. Quisque vehicula, urna sit amet.</p>
+          <h6 class="heading"><a href="#">서울 명소</a></h6>
+          <p>
+            <img src="${lvo.poster }" style="width:480px;height:200px">
+          </p>
           <footer><a href="#">Read More &raquo;</a></footer>
         </article>
       </li>
       <li class="one_third">
         <article class="service"><i class="icon fa fa-h-square"></i>
-          <h6 class="heading"><a href="#">Lorem Ipsum Dolor</a></h6>
-          <p>Aenean semper elementum tellus, ut placerat leo. Quisque vehicula, urna sit amet.</p>
+          <h6 class="heading"><a href="#">서울 자연&관광</a></h6>
+          <p><img src="${nvo.poster }" style="width:480px;height:200px"></p>
           <footer><a href="#">Read More &raquo;</a></footer>
         </article>
       </li>
       <li class="one_third">
         <article class="service"><i class="icon fa fa-hospital-o"></i>
-          <h6 class="heading"><a href="#">Lorem Ipsum Dolor</a></h6>
-          <p>Aenean semper elementum tellus, ut placerat leo. Quisque vehicula, urna sit amet.</p>
+          <h6 class="heading"><a href="#">서울 호텔</a></h6>
+          <p><img src="${hvo.poster }" style="width:480px;height:200px"></p>
           <footer><a href="#">Read More &raquo;</a></footer>
         </article>
       </li>

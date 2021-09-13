@@ -13,8 +13,10 @@
     <table class="table">
      <tr>
       <td class="inline">
+         <form method="post" action="../news/news.do">
            <input type=text name=fd size=20 class="input-sm">
            <input type=submit value="검색">
+          </form>
       </td>
      </tr>
     </table>
@@ -27,7 +29,7 @@
                <td style="color:orange">${vo.title }</td>
              </tr>
              <tr>
-               <td>${vo.description }</td>
+               <td><a href="${vo.link }" style="color:gray;">${vo.description }</a></td>
              </tr>
              <tr>
                <td align="right">${vo.author }</td>
