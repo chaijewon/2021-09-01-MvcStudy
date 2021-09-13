@@ -89,6 +89,9 @@ public class FreeBoardModel {
 	  FreeBoardDAO dao=FreeBoardDAO.newInstance();
 	  // 메소드 호출 
 	  FreeBoardVO vo=dao.freeboardDetailData(Integer.parseInt(no));
+	  // 댓글 받기
+	  List<ReplyVO> list=dao.replyListData(Integer.parseInt(no), 1);
+	  request.setAttribute("list", list);
 	  request.setAttribute("vo", vo);
 	  request.setAttribute("main_jsp", "../freeboard/detail.jsp");
 	  /*
@@ -199,10 +202,14 @@ public class FreeBoardModel {
 	  // pwd,no => 삭제 요청( DAO )
 	  FreeBoardDAO dao=FreeBoardDAO.newInstance();
 	  // 메소드 호출 
+	  boolean bCheck=dao.freeboardDelete(Integer.parseInt(no), pwd);
 	  // 결과값을 delete_ok.jsp 
-	  
+	  request.setAttribute("bCheck", bCheck);
 	  return "../freeboard/delete_ok.jsp";// list.jsp , history.back()
   }
+  /*
+   *   DAO => 1.DBCP , 2. Transcation , 3. 싱글턴 
+   */
 }
 
 

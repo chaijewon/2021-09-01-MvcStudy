@@ -41,6 +41,32 @@
         </td>
       </tr>
     </table>
+    <div id="comments">
+        <h2>댓글</h2>
+        <ul>
+         <c:forEach var="rvo" items="${list }">
+	          <li>
+	            <article>
+	              <header>
+	                <figure class="avatar">
+	                  <c:if test="${sessionScope.id==rvo.id }">
+	                    <a href="#" class="btn btn-xs btn-danger" style="color:black">수정</a>
+	                    <a href="#" class="btn btn-xs btn-success" style="color:black">삭제</a>
+	                  </c:if>
+	                </figure>
+	                <address>
+	                By <a href="#">${rvo.name }</a>
+	                </address>
+	                <span>(${rvo.dbday })</span>
+	              </header>
+	              <div class="comcont">
+	                <p>${rvo.msg }</p>
+	              </div>
+	            </article>
+	          </li>
+          </c:forEach>
+         </ul>
+      </div>
   </main>
 </div>
 </body>

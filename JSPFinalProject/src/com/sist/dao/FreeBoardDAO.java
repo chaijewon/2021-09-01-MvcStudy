@@ -21,6 +21,7 @@ import java.sql.*;
 import javax.sql.*;
 
 import com.sist.vo.FreeBoardVO;
+import com.sist.vo.ReplyVO;
 
 import javax.naming.*;
 
@@ -252,13 +253,15 @@ public class FreeBoardDAO {
 	   }
 	   return bCheck;
    }
-   // 삭제
+   // 삭제 => 트랜잭션 프로그램 (일괄처리) => SQL문장 전체가 실행 , error가 났을 경우에 전체 취소
+   
    public boolean freeboardDelete(int no,String pwd)
    {
 	   boolean bCheck=false;
 	   try
 	   {
 		   getConnection();
+		   conn.setAutoCommit(false);
 		   // 비밀번호 체크 
 		   String sql="SELECT pwd FROM project_freeboard "
 				     +"WHERE no=?";
@@ -276,13 +279,14 @@ public class FreeBoardDAO {
 				  +"WHERE bno=?";
 			   ps=conn.prepareStatement(sql);
 			   ps.setInt(1, no);
-			   ps.executeUpdate();
+			   ps.executeUpdate();// 참조하고 있는 데이터를 먼저 삭제한다 
 			   
 			   sql="DELETE FROM project_freeboard "
 				  +"WHERE no=?";
 			   ps=conn.prepareStatement(sql);
 			   ps.setInt(1, no);
 			   ps.executeUpdate();
+			   conn.commit();
 		   }
 		   else
 		   {
@@ -291,13 +295,55 @@ public class FreeBoardDAO {
 	   }catch(Exception ex)
 	   {
 		   ex.printStackTrace();
+		   try
+		   {
+			   conn.rollback();
+		   }catch(Exception e)
+		   {
+			   e.printStackTrace();
+			   
+		   }
 	   }
 	   finally
 	   {
+		   try
+		   {
+			   conn.setAutoCommit(true);
+		   }catch(Exception ex) {}
 		   disConnection();
 	   }
 	   return bCheck;
    }
+   /*
+    *     메소드()
+    *     {
+    *         try
+    *         {
+    *             getConnection();
+    *             conn.setAutoCommit(false); => true(자동 commit=> true)
+    *             ** oracle 단점 : 오류 발생시 => 다음 문장을 실행 (commit을 실행해야 저장)
+    *             =SQL문장  error
+    *             =SQL문장  error
+    *             =SQL문장 정상 수행  => commit
+    *             conn.commit()
+    *         }catch(Exception ex)
+    *         {
+    *             conn.rollback() ;  SQL문장 전체 취소
+    *         }
+    *         finally
+    *         {
+    *              conn.setAutoCommit(true);
+    *         }
+    *     }
+    *     트랜잭션 프로그램 (중요) 
+    *     
+    *     기본 )
+    *         입고 (INSERT) => 재고 (INSERT) => 동시 처리
+    *         출고 (INSERT) => 재고 (UPDATE) => 동시 처리 
+    *         ======================================== 트랜잭션(일괄처리)
+    *         여러개의 문장이 동시에 정상 수행 => commit()
+    *         여러개의 문장중에 1개라도 에러 발생시 => rollback()
+    */
    // 글쓰기 
    // JSP => .do ==> Model에서 처리 (DAO연결) => 화면출력 이동 
    public void freeboardInsert(FreeBoardVO vo)
@@ -325,7 +371,45 @@ public class FreeBoardDAO {
    }
    // 찾기 
    // ======================= PL/SQL (오라클에서 한수 호출) => 자동 처리 (Trigger) 
-   // 댓글 목록
+   // 댓글 목록=> Model이 받아서 => request에 담아서 => JSP
+   // 자바 / HTML을 분리 
+   public List<ReplyVO> replyListData(int bno,int type)
+   {
+	   List<ReplyVO> list=new ArrayList<ReplyVO>();
+	   try
+	   {
+		   getConnection();
+		   String sql="SELECT no,bno,id,name,msg,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') "
+				     +"FROM project_reply "
+				     +"WHERE bno=? AND type=?";
+		   //bno => 어떤 게시물 번호(1번), 어떤 맛집 번호(1번)
+		   //type => 구분 (맛집,게시판)
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, bno);
+		   ps.setInt(2, type);
+		   ResultSet rs=ps.executeQuery();
+		   while(rs.next())
+		   {
+			   ReplyVO vo=new ReplyVO();
+			   vo.setNo(rs.getInt(1));
+			   vo.setBno(rs.getInt(2));
+			   vo.setId(rs.getString(3));
+			   vo.setName(rs.getString(4));
+			   vo.setMsg(rs.getString(5));
+			   vo.setDbday(rs.getString(6));
+			   list.add(vo);
+		   }
+		   rs.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return list;
+   }
    // 댓글 쓰기
    // 댓글 수정 
    // 댓글 삭제 
