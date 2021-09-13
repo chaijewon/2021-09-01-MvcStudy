@@ -15,24 +15,25 @@
  --%>
 <div class="wrapper row3">
   <main class="container clear">
-    <form method="post" action="../freeboard/insert_ok.do">
+    <form method="post" action="../freeboard/update_ok.do">
     <table class="table">
       <tr>
         <th width="20%" class="text-right">이름</th>
         <td width="80%">
-          <input type=text name=name size=20 class="input-sm">
+          <input type=text name=name size=20 class="input-sm" value="${vo.name }">
+          <input type=hidden name=no value="${vo.no }">
         </td>
       </tr>
       <tr>
         <th width="20%" class="text-right">제목</th>
         <td width="80%">
-          <input type=text name=subject size=60 class="input-sm">
+          <input type=text name=subject size=60 class="input-sm" value="${vo.subject }">
         </td>
       </tr>
       <tr>
         <th width="20%" class="text-right">내용</th>
         <td width="80%">
-          <textarea rows="10" cols="60" name=content></textarea>
+          <textarea rows="10" cols="60" name=content>${vo.content }</textarea>
         </td>
       </tr>
       <tr>
@@ -50,7 +51,7 @@
        --%>
       <tr>
         <td class="text-center" colspan="2">
-          <input type=submit value="글쓰기" class="btn btn-sm btn-danger">
+          <input type=submit value="수정" class="btn btn-sm btn-danger">
           <input type=button value="취소" class="btn btn-sm btn-success"
             onclick="javascript:history.back()"
           >

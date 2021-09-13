@@ -23,6 +23,7 @@ import javax.sql.*;
 import com.sist.vo.FreeBoardVO;
 
 import javax.naming.*;
+
 // 1. DAO , 2. MVC  ==> Spring (MVC) , XML,Annotation 
 // 실무 => 지금 프로젝트 
 // Ajax / React,Vue 
@@ -137,9 +138,191 @@ public class FreeBoardDAO {
 	   return total;
    }
    // 상세보기 
+   public FreeBoardVO freeboardDetailData(int no)
+   {
+	   FreeBoardVO vo=new FreeBoardVO();
+	   try
+	   {
+		   getConnection();
+		   // 조회수 증가 
+		   String sql="UPDATE project_freeboard SET "
+				     +"hit=hit+1 "
+				     +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, no);
+		   ps.executeUpdate(); 
+		   
+		   // 상세볼 게시물 읽기
+		   sql="SELECT no,name,subject,content,regdate,hit "
+			  +"FROM project_freeboard "
+			  +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, no);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   vo.setNo(rs.getInt(1));
+		   vo.setSubject(rs.getString(3));
+		   vo.setName(rs.getString(2));
+		   vo.setContent(rs.getString(4));
+		   vo.setRegdate(rs.getDate(5));
+		   vo.setHit(rs.getInt(6));
+		   rs.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return vo;
+   }
    // 수정 
+   public FreeBoardVO freeboardUpdateData(int no)
+   {
+	   FreeBoardVO vo=new FreeBoardVO();
+	   try
+	   {
+		   getConnection();
+		   // 조회수 증가 
+		   String sql="SELECT no,name,subject,content "
+			  +"FROM project_freeboard "
+			  +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, no);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   vo.setNo(rs.getInt(1));
+		   vo.setSubject(rs.getString(3));
+		   vo.setName(rs.getString(2));
+		   vo.setContent(rs.getString(4));
+		   rs.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return vo;
+   }
+   // 실제 수정 
+   public boolean freeboardUpdate(FreeBoardVO vo)
+   {
+	   boolean bCheck=false;// 비밀번호 체크 (true/수정,false/다시 입력)
+	   try
+	   {
+		   getConnection();
+		   // 비밀번호 확인 
+		   String sql="SELECT pwd FROM project_freeboard "
+				     +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, vo.getNo());
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   String db_pwd=rs.getString(1);
+		   rs.close();
+		   
+		   if(db_pwd.equals(vo.getPwd())) 
+		   {
+			   bCheck=true;
+			   // 실제 수정 
+			   sql="UPDATE project_freeboard SET "
+				  +"name=?,subject=?,content=? "
+				  +"WHERE no=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setString(1, vo.getName());
+			   ps.setString(2, vo.getSubject());
+			   ps.setString(3, vo.getContent());
+			   ps.setInt(4, vo.getNo());
+			   ps.executeUpdate();
+		   }
+		   else
+		   {
+			   bCheck=false;
+		   }
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return bCheck;
+   }
    // 삭제
+   public boolean freeboardDelete(int no,String pwd)
+   {
+	   boolean bCheck=false;
+	   try
+	   {
+		   getConnection();
+		   // 비밀번호 체크 
+		   String sql="SELECT pwd FROM project_freeboard "
+				     +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, no);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   String db_pwd=rs.getString(1);
+		   rs.close();
+		   if(pwd.equals(db_pwd)) 
+		   {
+			   bCheck=true;//freeboard/list.jsp
+			   // 삭제 한다 
+			   sql="DELETE FROM project_reply "
+				  +"WHERE bno=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setInt(1, no);
+			   ps.executeUpdate();
+			   
+			   sql="DELETE FROM project_freeboard "
+				  +"WHERE no=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setInt(1, no);
+			   ps.executeUpdate();
+		   }
+		   else
+		   {
+			   bCheck=false;// history.back()
+		   }
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return bCheck;
+   }
    // 글쓰기 
+   // JSP => .do ==> Model에서 처리 (DAO연결) => 화면출력 이동 
+   public void freeboardInsert(FreeBoardVO vo)
+   {
+	   try
+	   {
+		   getConnection();
+		   String sql="INSERT INTO project_freeboard(no,name,subject,content,pwd) "
+				     +"VALUES(pf_no_seq.nextval,?,?,?,?)";
+		   ps=conn.prepareStatement(sql);
+		   ps.setString(1, vo.getName());
+		   ps.setString(2, vo.getSubject());
+		   ps.setString(3, vo.getContent());
+		   ps.setString(4, vo.getPwd());
+		   ps.executeUpdate(); //commit이 존재  => autocommit()
+		   // INSERT , UPDATE ,DELETE
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+   }
    // 찾기 
    // ======================= PL/SQL (오라클에서 한수 호출) => 자동 처리 (Trigger) 
    // 댓글 목록
