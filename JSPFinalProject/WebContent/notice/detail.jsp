@@ -40,8 +40,8 @@
       <tr>
         <td colspan="4" class="text-right">
          <c:if test="${sessionScope.admin=='y' }">
-          <a href="#" class="btn btn-sm btn-success">수정</a>
-          <a href="#" class="btn btn-sm btn-info">삭제</a>
+          <a href="../notice/notice_update.do?no=${vo.no }" class="btn btn-sm btn-success">수정</a>
+          <a href="../notice/notice_delete.do?no=${vo.no }" class="btn btn-sm btn-info">삭제</a>
          </c:if>
          <a href="../notice/list.do" class="btn btn-sm btn-warning">목록</a>
         </td>

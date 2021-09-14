@@ -146,6 +146,104 @@ public class NoticeDAO {
 	   }
 	   return vo;
    }
+   // 공지사항 추가
+   /*
+    *   no NUMBER,
+	    name VARCHAR2(34) CONSTRAINT pn_name_nn NOT NULL,
+	    subject VARCHAR2(1000) CONSTRAINT pn_subject_nn NOT NULL,
+	    content CLOB CONSTRAINT pn_content_nn NOT NULL,
+	    regdate DATE DEFAULT SYSDATE,
+	    hit NUMBER DEFAULT 0,
+    */
+   public void noticeInsert(NoticeVO vo)
+   {
+	   try
+	   {
+		   getConnection();
+		   String sql="INSERT INTO project_notice(no,name,subject,content) VALUES("
+				     +"pn_no_seq.nextval,?,?,?)";
+		   ps=conn.prepareStatement(sql);
+		   ps.setString(1, vo.getName());
+		   ps.setString(2, vo.getSubject());
+		   ps.setString(3, vo.getContent());
+		   ps.executeUpdate();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+   }
+   // 공지사항 수정
+   public NoticeVO noticeUpdateData(int no)
+   {
+	   NoticeVO vo=new NoticeVO(); // 게시판 , 공지사항 
+	   try
+	   {
+		   getConnection();
+		   String sql="SELECT no,subject,content FROM project_notice "
+				     +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, no);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   vo.setNo(rs.getInt(1));
+		   vo.setSubject(rs.getString(2));
+		   vo.setContent(rs.getString(3));
+		   rs.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return vo;
+   }
+   // 공지사항 삭제 
+   public void noticeDelete(int no)
+   {
+	   try
+	   {
+		   getConnection();
+		   String sql="DELETE FROM project_notice WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1,no);
+		   ps.executeUpdate();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+   }
+   public void noticeUpdate(NoticeVO vo)
+   {
+	   try
+	   {
+		   getConnection();
+		   String sql="UPDATE project_notice SET "
+				     +"subject=?,content=? "
+				     +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setString(1, vo.getSubject());
+		   ps.setString(2, vo.getContent());
+		   ps.setInt(3, vo.getNo());
+		   ps.executeUpdate();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+   }
 }
 
 
