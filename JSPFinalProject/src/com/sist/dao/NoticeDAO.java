@@ -49,7 +49,7 @@ public class NoticeDAO {
 		   String sql="SELECT no,subject,name,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS'),hit,num "
 				     +"FROM (SELECT no,subject,name,regdate,hit,rownum as num "
 				     +"FROM (SELECT no,subject,name,regdate,hit "
-				     +"FROM project_notice ORDER no DESC)) "
+				     +"FROM project_notice ORDER BY no DESC)) "
 				     +"WHERE num BETWEEN ? AND ?";
 		   ps=conn.prepareStatement(sql);
 		   int rowSize=10;
@@ -84,6 +84,67 @@ public class NoticeDAO {
 		   disConnection();
 	   }
 	   return list;
+   }
+   // 총페이지 ==> 사람 (한눈에 볼수 있는 갯수 => 15) => 10~20
+   public int noticeTotalPage()
+   {
+	   int total=0;
+	   try
+	   {
+		   getConnection();
+		   String sql="SELECT CEIL(COUNT(*)/10.0) FROM project_notice";
+		   ps=conn.prepareStatement(sql);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   total=rs.getInt(1);
+		   rs.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return total;
+   }
+   // 상세보기 
+   public NoticeVO noticeDetailData(int no)
+   {
+	   NoticeVO vo=new NoticeVO();
+	   try
+	   {
+		   getConnection();
+		   String sql="UPDATE project_notice SET "
+				     +"hit=hit+1 "
+				     +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, no);
+		   ps.executeUpdate();//UPDATE,DELETE,INSERT => Commit
+		   
+		   sql="SELECT no,name,subject,content,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS'),hit "
+			  +"FROM project_notice "
+			  +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1,no);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   vo.setNo(rs.getInt(1));
+		   vo.setName(rs.getString(2));
+		   vo.setSubject(rs.getString(3));
+		   vo.setContent(rs.getString(4));
+		   vo.setDbday(rs.getString(5));
+		   vo.setHit(rs.getInt(6));
+		   rs.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return vo;
    }
 }
 
