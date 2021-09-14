@@ -359,7 +359,7 @@ public class FreeBoardDAO {
 		   ps.setString(3, vo.getContent());
 		   ps.setString(4, vo.getPwd());
 		   ps.executeUpdate(); //commit이 존재  => autocommit()
-		   // INSERT , UPDATE ,DELETE
+		   // INSERT , UPDATE ,DELETE 여러개 존재 => 일괄처리(트랜잭션)
 	   }catch(Exception ex)
 	   {
 		   ex.printStackTrace();
@@ -381,7 +381,8 @@ public class FreeBoardDAO {
 		   getConnection();
 		   String sql="SELECT no,bno,id,name,msg,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') "
 				     +"FROM project_reply "
-				     +"WHERE bno=? AND type=?";
+				     +"WHERE bno=? AND type=? "
+				     +"ORDER BY no DESC";
 		   //bno => 어떤 게시물 번호(1번), 어떤 맛집 번호(1번)
 		   //type => 구분 (맛집,게시판)
 		   ps=conn.prepareStatement(sql);
@@ -411,8 +412,100 @@ public class FreeBoardDAO {
 	   return list;
    }
    // 댓글 쓰기
+   /*
+    *      no NUMBER,
+		   bno NUMBER,  -- 게시판 번호,영화번호 , 맛집번호 , 레시피번호
+		   type NUMBER, -- 게시판(1) , 영화(2) , 맛집(3) 레시피(4) ,여행(5)
+		   id VARCHAR2(20),
+		   name VARCHAR2(34) CONSTRAINT pr_name_nn NOT NULL,
+		   msg CLOB CONSTRAINT pr_msg_nn NOT NULL,
+		   regdate DATE DEFAULT SYSDATE,
+		   CONSTRAINT pr_no_pk PRIMARY KEY(no),
+		   CONSTRAINT pr_type_fk FOREIGN KEY(id)
+		   REFERENCES project_member(id)
+		   
+		   CREATE SEQUENCE pr_no_seq 
+    */
+   public void replyInsert(ReplyVO vo)
+   {
+	   try
+	   {
+		   // 1. 연결 
+		   getConnection();
+		   // 2. SQL문장 만들기  => SQL문장 (마이바티스)
+		   String sql="INSERT INTO project_reply VALUES("
+				     +"pr_no_seq.nextval,?,?,?,?,?,SYSDATE)";
+		   // SQL문장을 미리 전송 
+		   ps=conn.prepareStatement(sql);
+		   // 나중에 ?에 값을 채운다 
+		   ps.setInt(1, vo.getBno());
+		   ps.setInt(2, vo.getType());
+		   ps.setString(3, vo.getId());
+		   ps.setString(4, vo.getName());
+		   ps.setNString(5, vo.getMsg());
+		   
+		   // 실행 명령 
+		   ps.executeUpdate(); //commit() 포함 
+		   // setInt() setString() setDouble()
+		   //   있는 그대로 값을 설정  , ''를 붙여서 첨부 , 있는 그대로 설정 
+		   /*
+		    *   INSERT INTO project_reply VALUES(?,?,?)
+		    *   setInt(1,1)
+		    *   setString(2,"홍길동")
+		    *   setDouble(3,185.45)
+		    *   
+		    *   INSERT INTO project_reply VALUES(1,'홍길동',185.45)
+		    */
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+   }
    // 댓글 수정 
-   // 댓글 삭제 
+   public void replyUpdate(int no,String msg)
+   {
+	   try
+	   {
+		   getConnection();
+		   String sql="UPDATE project_reply SET "
+				     +"msg=? "
+				     +"WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setString(1, msg);
+		   ps.setInt(2, no);
+		   ps.executeUpdate();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+   }
+   // 댓글 삭제  => 70~80% => DAO
+   public void replyDelete(int no)
+   {
+	   try
+	   {
+		   getConnection();
+		   String sql="DELETE FROM project_reply WHERE no=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setInt(1, no);
+		   ps.executeUpdate();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+   }
 }
 
 
