@@ -11,21 +11,27 @@
 <body>
   <div class="wrapper row3">
     <main class="container clear"> 
-      <h1 class="text-center">${vo.title }</h1>
+      <h1 class="text-center">${vo.name }</h1>
+      <div id="slider" class="clear"> 
+		    <!-- ################################################################################################ -->
+		  <div class="flexslider basicslider">
+		      <ul class="slides">
+		       <c:forTokens items="${vo.images }" delims="^" var="img">
+		         <li><a href="#"><img style="width:978px;height:400px" class="radius-10" src="${img }" alt=""></a></li>
+		       </c:forTokens>
+		      </ul>
+		   </div>
+		    <!-- ################################################################################################ --> 
+		  </div>
       <table class="table">
         <tr>
-         <td>
-          <img src="${vo.poster }" style="width:970px;height:450px">
-         </td>
-        </tr>
-        <tr>
-          <td>${vo.msg }</td>
+          <td>평점:${vo.score }</td>
         </tr>
         <tr>
           <td>${vo.address }</td>
         </tr>
         <tr>
-          <td class="text-right"><a href="../seoul/seoul_1.do" class="btn btn-sm btn-danger">목록</a></td>
+          <td class="text-right"><a href="../seoul/seoul_3.do" class="btn btn-sm btn-danger">목록</a></td>
         </tr>
       </table>
       <%-- 지도  --%>
@@ -46,7 +52,7 @@
 		var geocoder = new kakao.maps.services.Geocoder();
 		
 		// 주소로 좌표를 검색합니다
-		geocoder.addressSearch('${addr}', function(result, status) {
+		geocoder.addressSearch('${vo.address}', function(result, status) {
 		
 		    // 정상적으로 검색이 완료됐으면 
 		     if (status === kakao.maps.services.Status.OK) {
@@ -61,7 +67,7 @@
 		
 		        // 인포윈도우로 장소에 대한 설명을 표시합니다
 		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">${vo.title}</div>'
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">${vo.name}</div>'
 		        });
 		        infowindow.open(map, marker);
 		
@@ -85,7 +91,7 @@
 	       </c:forEach>  
 	      </ul>
 	    </div>
-	    <h2 class="sectiontitle">근처 호텔 리스트</h2>
+	    <h2 class="sectiontitle">근처 명소 리스트</h2>
 	    <!-- ################################################################################################ -->
 	    <div class="flexslider carousel basiccarousel btmspace-80">
 	      <ul class="slides">

@@ -358,7 +358,13 @@ public class SeoulDAO {
 			  ResultSet rs=ps.executeQuery();
 			  while(rs.next())
 			  {
-				  
+				  FoodVO vo=new FoodVO();
+				  vo.setNo(rs.getInt(1));
+				  String image=rs.getString(2);
+				  image=image.substring(0,image.indexOf("^"));
+				  vo.setPoster(image.replace("#", "&"));
+				  vo.setName(rs.getString(3));
+				  list.add(vo);
 			  }
 			  rs.close();
 			  
@@ -373,6 +379,71 @@ public class SeoulDAO {
 		  return list;
 	  }
 	  // 해당구에 잇는 호텔 (15)
+	  public List<SeoulHotelVO> seoulHotelListData(String gu)
+	  {
+		  List<SeoulHotelVO> list=new ArrayList<SeoulHotelVO>();
+		  try
+		  {
+			  getConnection();
+			  String sql="SELECT no,poster,name,rownum "
+					    +"FROM (SELECT no,poster,name "
+					    +"FROM seoul_hotel WHERE address LIKE '%'||?||'%' ORDER BY no ASC) "
+					    +"WHERE rownum<=15";
+			  ps=conn.prepareStatement(sql);
+			  ps.setString(1, gu);
+			  ResultSet rs=ps.executeQuery();
+			  while(rs.next())
+			  {
+				  SeoulHotelVO vo=new SeoulHotelVO();
+				  vo.setNo(rs.getInt(1));
+				  vo.setPoster(rs.getString(2).replace("#", "&"));
+				  vo.setName(rs.getString(3));
+				  list.add(vo);
+			  }
+			  rs.close();
+			  
+		  }catch(Exception ex)
+		  {
+			  ex.printStackTrace();
+		  }
+		  finally
+		  {
+			  disConnection();
+		  }
+		  return list;
+	  }
+	  
+	  // 호텔 상세보기
+	  public SeoulHotelVO seoulHotelDetailData(int no)
+	  {
+		  SeoulHotelVO vo=new SeoulHotelVO();
+		  try
+		  {
+			  getConnection();
+			  String sql="SELECT no,poster,name,address,score,images "
+					    +"FROM seoul_hotel "
+					    +"WHERE no=?";
+			  ps=conn.prepareStatement(sql);
+			  ps.setInt(1, no);
+			  ResultSet rs=ps.executeQuery();
+			  rs.next();
+			  vo.setNo(rs.getInt(1));
+			  vo.setPoster(rs.getString(2));
+			  vo.setName(rs.getString(3));
+			  vo.setAddress(rs.getString(4));
+			  vo.setScore(rs.getDouble(5));
+			  vo.setImages(rs.getString(6));
+			  rs.close();
+		  }catch(Exception ex)
+		  {
+			  ex.printStackTrace();
+		  }
+		  finally
+		  {
+			  disConnection();
+		  }
+		  return vo;
+	  }
 	     
 }
 

@@ -203,13 +203,39 @@ public class SeoulModel {
 		   String gu=addr.substring(addr.indexOf(" ")+1);
 		   // gu=종로구 삼청로 50
 		   gu=gu.substring(0,gu.indexOf(" "));
+		   System.out.println("gu="+gu);
 		   // gu=종로구
 		   // 맛집 
+		   List<FoodVO> fList=dao.seoulFoodListData(gu);
 		   // 호텔 
+		   List<SeoulHotelVO> sList=dao.seoulHotelListData(gu);
 		   // 자연
+		   request.setAttribute("fList", fList);
+		   request.setAttribute("sList", sList);
 		   request.setAttribute("addr", addr);
 		   request.setAttribute("vo", vo);
 		   request.setAttribute("main_jsp", "../seoul/seoul_loc.jsp");
+		   return "../main/main.jsp";
+	   }
+	   @RequestMapping("seoul/seoul_hotel.do")
+	   public String seoul_hotel(HttpServletRequest request,HttpServletResponse response)
+	   {
+		   // 호텔번호를 받는다 
+		   // ../seoul/seoul_hotel.do?no=${vo.no }
+		   String no=request.getParameter("no");
+		   // 오라클에서 no에 해당되는 데이터를 가지고 온다 
+		   SeoulDAO dao=SeoulDAO.newInstance();
+		   // 데이터 읽기
+		   SeoulHotelVO vo=dao.seoulHotelDetailData(Integer.parseInt(no));
+		   String addr=vo.getAddress();
+		   addr=addr.substring(addr.indexOf(" ")+1);
+		   String gu=addr.substring(0,addr.indexOf(" "));
+		   List<FoodVO> fList=dao.seoulFoodListData(gu);
+		   List<SeoulHotelVO> sList=dao.seoulHotelListData(gu);
+		   request.setAttribute("fList", fList);
+		   request.setAttribute("sList", sList);
+		   request.setAttribute("vo", vo);
+		   request.setAttribute("main_jsp", "../seoul/seoul_hotel.jsp");
 		   return "../main/main.jsp";
 	   }
 }

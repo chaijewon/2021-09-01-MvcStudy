@@ -44,10 +44,10 @@
             --%>
            <c:forEach var="vo" items="${list }" varStatus="s">
              <c:if test="${s.index%4==0 }">
-               <li class="one_quarter first"><a href="#"><img style="width:250px;height:250px" src="${vo.poster }" title="${vo.name }"></a></li>
+               <li class="one_quarter first"><a href="../seoul/seoul_hotel.do?no=${vo.no }"><img style="width:250px;height:250px" src="${vo.poster }" title="${vo.name }"></a></li>
              </c:if>
              <c:if test="${s.index%4!=0 }">
-               <li class="one_quarter"><a href="#"><img style="width:250px;height:250px" src="${vo.poster }" title="${vo.name }"></a></li>
+               <li class="one_quarter"><a href="../seoul/seoul_hotel.do?no=${vo.no }"><img style="width:250px;height:250px" src="${vo.poster }" title="${vo.name }"></a></li>
              </c:if>
            </c:forEach>
           </ul>
