@@ -134,7 +134,7 @@ $(function(){
       <li><a class="drop" href="#">맛집</a>
         <ul>
           <li><a href="../food/food_main.do">맛집 목록</a></li>
-          <li><a href="pages/full-width.html">지역별 맛집 찾기</a></li>
+          <li><a href="../food/food_find.do">지역별 맛집 찾기</a></li>
         </ul>
       </li>
       <!-- 레시피 -->
@@ -148,15 +148,26 @@ $(function(){
       <!-- 영화 -->
       <li><a class="drop" href="#">영화</a>
         <ul>
-          <li><a href="../movie/movie_main.do">영화 목록</a></li>
-          <li><a href="../movie/movie_main.do">현재상영영화</a></li>
-          <li><a href="pages/full-width.html">개봉예정영화</a></li>
+          <li><a href="../movie/movie_list.do?cno=1">현재상영영화</a></li>
+          <%-- 클릭시 : MovieModel 이동  요청한 주소를 처리하는 메소드 찾기(@RequestMapping())--%>
+          <%--
+                                    메소드 => DAO연결 / 결과값을 jsp로 전송 
+                                                             main_jsp => jsp
+                           ======= request.setAttribute() => return ""
+                           
+                           main.jsp가 없는 상태 => redirect
+                                              ==========
+                                              _ok.do => 화면 출력하는 부분이 아니다 
+                                              
+                                              Ajax => 해당 JSP에서 요청 =응답
+                                                     ======== 자체 JSP에서 처리 
+           --%>
+          <li><a href="../movie/movie_list.do?cno=2">개봉예정영화</a></li>
         </ul>
       </li>
       <!-- 서울 여행  -->
       <li><a class="drop" href="#">서울여행</a>
         <ul>
-          <li><a href="../seoul/seoul_main.do">서울여행</a></li>
           <li><a href="../seoul/seoul_1.do">명소</a></li>
           <%-- 페이지를 블럭단위로 처리  --%>
           <li><a href="../seoul/seoul_2.do">자연&관광</a></li>
@@ -170,7 +181,6 @@ $(function(){
           <li><a href="../freeboard/list.do">자유게시판</a></li>
           <li><a href="../replyboard/list.do">묻고답하기</a></li>
           <li><a href="../notice/list.do">공지사항</a></li>
-          <li><a href="pages/full-width.html">이벤트</a></li>
         </ul>
       </li>
       <c:if test="${sessionScope.id!=null }">
