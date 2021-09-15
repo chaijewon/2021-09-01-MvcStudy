@@ -157,9 +157,10 @@ $(function(){
       <li><a class="drop" href="#">서울여행</a>
         <ul>
           <li><a href="../seoul/seoul_main.do">서울여행</a></li>
-          <li><a href="pages/gallery.html">명소</a></li>
-          <li><a href="pages/gallery.html">자연&관광</a></li>
-          <li><a href="pages/full-width.html">호텔</a></li>
+          <li><a href="../seoul/seoul_1.do">명소</a></li>
+          <%-- 페이지를 블럭단위로 처리  --%>
+          <li><a href="../seoul/seoul_2.do">자연&관광</a></li>
+          <li><a href="../seoul/seoul_3.do">호텔</a></li>
           <li><a href="../seoul/seoul_weather.do">날씨</a></li>
         </ul>
       </li>
