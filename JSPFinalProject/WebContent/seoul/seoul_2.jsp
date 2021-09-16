@@ -31,7 +31,7 @@
       <!-- ################################################################################################ -->
       <div id="gallery">
         <figure>
-          <header class="heading">멀리 가지 않아도 도심 속에서 느낄 수 있는 자연의 힐링</header>
+          <header class="heading"><h2 class="sectiontitle">멀리 가지 않아도 도심 속에서 느낄 수 있는 자연의 힐링</h2></header>
           <ul class="nospace clear">
            <%--
                  varStatus => List의 index번호를 읽어 온다 (0번=>11번)

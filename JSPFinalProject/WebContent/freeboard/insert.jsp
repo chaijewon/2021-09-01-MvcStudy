@@ -14,7 +14,9 @@
             .do 
  --%>
 <div class="wrapper row3">
+  
   <main class="container clear">
+  <h2 class="sectiontitle">글쓰기</h2>
     <form method="post" action="../freeboard/insert_ok.do">
     <table class="table">
       <tr>

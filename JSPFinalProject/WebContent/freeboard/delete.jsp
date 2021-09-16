@@ -15,7 +15,9 @@
 </head>
 <body>
 <div class="wrapper row3">
+  
   <main class="container clear">
+    <h2 class="sectiontitle">삭제하기</h2>
     <div class="row">
       <form method=post action="../freeboard/delete_ok.do">
 	      <table class="table">

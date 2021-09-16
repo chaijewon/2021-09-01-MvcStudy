@@ -31,7 +31,7 @@
       <!-- ################################################################################################ -->
       <div id="gallery">
         <figure>
-          <header class="heading">잠드는 순간에도 특별한 경험을 원하는 여행객 모두를 위한 서울의 호텔</header>
+          <header class="heading"><h2 class="sectiontitle">잠드는 순간에도 특별한 경험을 원하는 여행객 모두를 위한 서울의 호텔</h2></header>
           <ul class="nospace clear">
            <%--
                  varStatus => List의 index번호를 읽어 온다 (0번=>11번)

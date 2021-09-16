@@ -25,13 +25,14 @@
 <!-- ################################################################################################ -->
 <div class="wrapper row3">
   <main class="container clear"> 
+    
     <!-- main body --> 
     <!-- ################################################################################################ -->
     <div class="content"> 
       <!-- ################################################################################################ -->
       <div id="gallery">
         <figure>
-          <header class="heading">놓칠 수 없는 서울의 명소</header>
+          <header class="heading"><h2 class="sectiontitle">놓칠 수 없는 서울의 명소</h2></header>
           <ul class="nospace clear">
            <%--
                  varStatus => List의 index번호를 읽어 온다 (0번=>11번)

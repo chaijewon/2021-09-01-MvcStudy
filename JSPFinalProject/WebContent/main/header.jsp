@@ -119,7 +119,7 @@ $(function(){
         <c:if test="${sessionScope.id==null }"><%--로그인이 안된 상태 --%>
 	        <ul>
 	          <li><a href="../member/join.do">회원가입</a></li>
-	          <li><a href="pages/full-width.html">아이디찾기</a></li>
+	          <li><a href="../member/idfind.do">아이디찾기</a></li>
 	          <li><a href="pages/sidebar-left.html">비밀번호찾기</a></li>
 	        </ul>
         </c:if>
@@ -186,7 +186,7 @@ $(function(){
       <c:if test="${sessionScope.id!=null }">
 	      <li><a class="drop" href="#">시스템</a>
 	        <ul>
-	          <li><a href="pages/gallery.html">맛집예약</a></li>
+	          <li><a href="../reserve/date.do">맛집예약</a></li>
 	          <li><a href="pages/gallery.html">영화예매</a></li>
 	          <li><a href="pages/gallery.html">맛집추천</a></li>
 	          <li><a href="pages/gallery.html">영화추천</a></li>

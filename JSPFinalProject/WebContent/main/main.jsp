@@ -20,6 +20,7 @@
 <%-- footer --%>
 <%@ include file="../main/footer.jsp" %>
 <script src="../layout/scripts/jquery.min.js"></script> 
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="../layout/scripts/jquery.backtotop.js"></script> 
 <script src="../layout/scripts/jquery.mobilemenu.js"></script> 
 <script src="../layout/scripts/jquery.flexslider-min.js"></script>

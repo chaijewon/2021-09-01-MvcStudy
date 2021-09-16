@@ -144,6 +144,14 @@ public class MemberModel {
 	  session.invalidate(); // 데이터 전체 삭제
 	  return "redirect:../main/main.do";
   }
+  // id찾기
+  @RequestMapping("member/idfind.do")
+  public String member_idfind(HttpServletRequest request,HttpServletResponse response)
+  {
+	  request.setAttribute("main_jsp", "../member/idfind.jsp");
+	  return "../main/main.jsp";
+  }
+  
 }
 
 

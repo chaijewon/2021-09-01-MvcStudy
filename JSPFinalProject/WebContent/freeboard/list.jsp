@@ -10,7 +10,9 @@
 </head>
 <body>
 <div class="wrapper row3">
+
   <main class="container clear">
+    <h2 class="sectiontitle">게시판</h2>
    <table class="table">
      <tr>
       <td>

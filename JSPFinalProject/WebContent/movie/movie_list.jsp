@@ -32,7 +32,7 @@
       <div id="gallery">
         <figure>
           <header class="heading">
-            ${cno==1?"현재상영영화":"개봉예정영화" }
+            <h2 class="sectiontitle">${cno==1?"현재상영영화":"개봉예정영화" }</h2>
           </header>
           <ul class="nospace clear">
            <%--

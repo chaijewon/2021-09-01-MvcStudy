@@ -33,7 +33,9 @@ $(function(){
 </head>
 <body>
 <div class="wrapper row3">
+  
   <main class="container clear">
+  <h2 class="sectiontitle">내용보기</h2>
     <table class="table">
       <tr>
         <th class="text-center" width=20%>번호</th>
