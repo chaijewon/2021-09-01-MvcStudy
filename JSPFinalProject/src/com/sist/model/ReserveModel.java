@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
+import com.sist.dao.FoodDAO;
+import com.sist.vo.*;
+
 /*
  *     요청   /  응답(오라클 포함)
  *     ===
@@ -93,6 +96,26 @@ public class ReserveModel {
 	  request.setAttribute("lastday", lastday[month-1]);
 	  request.setAttribute("strWeek", strWeek);
 	  return "../reserve/date.jsp";
+  }
+  
+  @RequestMapping("reserve/reserve.do")
+  public String reserve_page(HttpServletRequest request,HttpServletResponse response)
+  {
+	  // main.jsp에 보여주는 파일 
+	  request.setAttribute("main_jsp", "../reserve/reserve.jsp");
+	  return "../main/main.jsp";
+  }
+  
+  // 목록 처리
+  @RequestMapping("reserve/food_list.do")
+  public String food_list(HttpServletRequest request,HttpServletResponse response)
+  {
+	  // DB 연동 
+	  FoodDAO dao=FoodDAO.newInstance();
+	  // 연동 
+	  List<FoodVO> list=dao.reserveFoodListData();
+	  request.setAttribute("list", list);
+	  return "../reserve/food_list.jsp";
   }
 }
 

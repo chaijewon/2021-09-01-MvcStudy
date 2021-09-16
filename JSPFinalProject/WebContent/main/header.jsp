@@ -186,7 +186,7 @@ $(function(){
       <c:if test="${sessionScope.id!=null }">
 	      <li><a class="drop" href="#">시스템</a>
 	        <ul>
-	          <li><a href="../reserve/date.do">맛집예약</a></li>
+	          <li><a href="../reserve/reserve.do">맛집예약</a></li>
 	          <li><a href="pages/gallery.html">영화예매</a></li>
 	          <li><a href="pages/gallery.html">맛집추천</a></li>
 	          <li><a href="pages/gallery.html">영화추천</a></li>

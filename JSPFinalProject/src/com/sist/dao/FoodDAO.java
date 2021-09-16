@@ -334,7 +334,38 @@ public class FoodDAO {
 		  }
 		  return list;
 	  }
-	  // 레시피 
+	 // 맛집 예약 ===============================================
+	  public List<FoodVO> reserveFoodListData()
+	  {
+		  List<FoodVO> list=new ArrayList<FoodVO>();
+		  try
+		  {
+			  getConnection();
+			  String sql="SELECT no,poster,name "
+					    +"FROM project_food_house";
+			  ps=conn.prepareStatement(sql);
+			  ResultSet rs=ps.executeQuery();
+			  while(rs.next())
+			  {
+				  FoodVO vo=new FoodVO();
+				  vo.setNo(rs.getInt(1));
+				  String image=rs.getString(2);
+				  image=image.substring(0,image.indexOf("^"));
+				  vo.setPoster(image);
+				  vo.setName(rs.getString(3));
+				  list.add(vo);
+			  }
+			  rs.close();
+		  }catch(Exception ex)
+		  {
+			  ex.printStackTrace();
+		  }
+		  finally
+		  {
+			  disConnection();
+		  }
+		  return list;
+	  }
 }
 
 
