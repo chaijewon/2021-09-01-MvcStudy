@@ -26,8 +26,11 @@ $(function(){
 		});
 		let poster=$(this).attr("data-poster");
 		let name=$(this).attr("data-name");
+		let no=$(this).attr("data-no");
 		$('#food_poster').attr("src",poster);
 		$('#food_name').text(name);
+		
+		$('#fno').val(no);
 	})
 })
 </script>

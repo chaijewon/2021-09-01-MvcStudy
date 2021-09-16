@@ -34,6 +34,17 @@ $(function(){
 		let month=$(this).attr("data-month");
 		let day=$(this).text();
 		$('#food_date1').text(year+"년 "+month+"월 "+day+"일");
+		$('#fdate').val(year+"년 "+month+"월 "+day+"일");
+		// 시간 정보를 가지고 온다 
+		$.ajax({
+			type:'post',
+			url:'../reserve/time.do',
+			data:{"no":day},
+			success:function(result)
+			{
+				$('#food_time').html(result);
+			}
+		})
 	})
 })
 </script>

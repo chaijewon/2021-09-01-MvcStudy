@@ -2,6 +2,7 @@ package com.sist.model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
@@ -117,6 +118,86 @@ public class ReserveModel {
 	  request.setAttribute("list", list);
 	  return "../reserve/food_list.jsp";
   }
+  // JSP:../reserve/time.do  ==> @RequestMapping("reserve/time.do") <=>DAO
+  // 출력 => return 
+  @RequestMapping("reserve/time.do")
+  public String food_time(HttpServletRequest request,HttpServletResponse response)
+  {
+	  // data:{"no":day} ==> time.do?no=16
+	  String no=request.getParameter("no");
+	  // 오라클에서 데이터를 얻어 온다 
+	  FoodDAO dao=FoodDAO.newInstance(); // Ajax(javascript) <=> include(jsp)  
+	  // 시간을 읽기 시작 
+	  String rtimes=dao.dateGetTime(Integer.parseInt(no));
+	  // 2,3,4,5,6,...
+	  List<String> list=new ArrayList<String>();
+	  StringTokenizer st=new StringTokenizer(rtimes,",");
+	  while(st.hasMoreTokens())
+	  {
+		  String s=st.nextToken();
+		  String time=dao.realGetTime(Integer.parseInt(s));
+		  list.add(time);
+	  }
+	  // time.jsp로 값을 전송 
+	  request.setAttribute("list", list);
+	  return "../reserve/time.jsp";
+  }
+  
+  @RequestMapping("reserve/inwon.do")
+  public String food_inwon(HttpServletRequest request,HttpServletResponse response)
+  {
+	  return "../reserve/inwon.jsp";
+  }
+  
+  @RequestMapping("reserve/reserve_ok.do")
+  public String reserve_ok(HttpServletRequest request,HttpServletResponse response)
+  {
+	  // 데이터 받기 
+	  /*
+	   *        <input type=hidden value="" name="fno" id="fno">
+                <input type=hidden value="" name="fdate" id="fdate">
+                <input type=hidden value="" name="ftime" id="ftime">
+                <input type=hidden value="" name="finwon" id="finwon">
+	   */
+	  try
+	  {
+		  request.setCharacterEncoding("UTF-8");
+	  }catch(Exception ex) {}
+	  String fno=request.getParameter("fno");
+	  String fdate=request.getParameter("fdate");
+	  String ftime=request.getParameter("ftime");
+	  String finwon=request.getParameter("finwon");
+	  
+	  HttpSession session=request.getSession();
+	  String id=(String)session.getAttribute("id");
+	  
+	  // 데이터 묶어서 전송 (오라클)
+	  ReserveVO vo=new ReserveVO();
+	  vo.setFno(Integer.parseInt(fno));
+	  vo.setId(id);
+	  vo.setRday(fdate);
+	  vo.setRtime(ftime);
+	  vo.setInwon(Integer.parseInt(finwon));
+	  // 오라클 연결 
+	  FoodDAO dao=FoodDAO.newInstance();
+	  //메소드 호출 
+	  dao.reserveOk(vo);// 예약 저장 종료 
+	  return "redirect:../reserve/mypage.do";
+  }
+  @RequestMapping("reserve/mypage.do")
+  public String reserve_mypage(HttpServletRequest request,HttpServletResponse response)
+  {
+	  HttpSession session=request.getSession();
+	  String id=(String)session.getAttribute("id");
+	  FoodDAO dao=FoodDAO.newInstance();
+	  
+	  List<ReserveVO> list=dao.mypageData(id);
+	  
+	  request.setAttribute("list", list);
+	  request.setAttribute("main_jsp", "../reserve/mypage.jsp");
+	  return "../main/main.jsp";
+  }
+  
 }
 
 
