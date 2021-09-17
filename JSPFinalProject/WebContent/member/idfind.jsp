@@ -12,6 +12,7 @@
     $("#tabs").tabs();
     
     $('#emailBtn').click(function(){
+    	 $('#email_print').text("");	
     	let email=$('#email').val();
     	if(email.trim()=="")
     	{
@@ -39,6 +40,7 @@
     });
     
     $('#telBtn').click(function(){
+    	$('#tel_print').text("");
     	let tel2=$('#tel2').val();
     	if(tel2.trim()=="")
     	{

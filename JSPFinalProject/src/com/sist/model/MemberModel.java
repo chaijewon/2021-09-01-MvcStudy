@@ -239,7 +239,24 @@ public class MemberModel {
 	  request.setAttribute("bCheck", bCheck);
 	  return "../member/join_delete_ok.jsp";
   }
-  
+  @RequestMapping("member/idfind_email.do")
+  public String member_idfind_email(HttpServletRequest request,HttpServletResponse response)
+  {
+	  String email=request.getParameter("email");
+	  MemberDAO dao=MemberDAO.newInstance();
+	  String s=dao.member_idfind_email(email);
+	  request.setAttribute("result", s);
+	  return "../member/idfind_email.jsp";
+  }
+  @RequestMapping("member/idfind_tel.do")
+  public String member_idfind_tel(HttpServletRequest request,HttpServletResponse response)
+  {
+	  String tel=request.getParameter("tel");
+	  MemberDAO dao=MemberDAO.newInstance();
+	  String s=dao.member_idfind_tel(tel);
+	  request.setAttribute("result", s);
+	  return "../member/idfind_tel.jsp";
+  }
 }
 
 

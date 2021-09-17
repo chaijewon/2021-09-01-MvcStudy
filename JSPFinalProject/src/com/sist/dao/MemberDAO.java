@@ -346,4 +346,87 @@ public class MemberDAO {
 	  return bCheck;
   }
   // 아이디찾기 , 비밀번호찾기 
+  public String member_idfind_email(String email)
+  {
+	   String result="";
+	   try
+	   {
+		   getConnection();
+		   String sql="SELECT COUNT(*) FROM project_member "
+				     +"WHERE email=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setString(1, email);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   int count=rs.getInt(1);
+		   rs.close();
+		   
+		   if(count==0)
+		   {
+			   result="no";
+		   }
+		   else
+		   {
+			   sql="SELECT RPAD(SUBSTR(id,1,1),LENGTH(id),'*') FROM project_member "
+				  +"WHERE email=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setString(1, email);
+			   rs=ps.executeQuery();
+			   rs.next();
+			   result=rs.getString(1);
+			   rs.close();
+		   }
+		   
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return result;
+  }
+  public String member_idfind_tel(String tel)
+  {
+	   String result="";
+	   try
+	   {
+		   getConnection();
+		   String sql="SELECT COUNT(*) FROM project_member "
+				     +"WHERE tel=?";
+		   ps=conn.prepareStatement(sql);
+		   ps.setString(1, tel);
+		   ResultSet rs=ps.executeQuery();
+		   rs.next();
+		   int count=rs.getInt(1);
+		   rs.close();
+		   
+		   if(count==0)
+		   {
+			   result="no";
+		   }
+		   else
+		   {
+			   sql="SELECT RPAD(SUBSTR(id,1,1),LENGTH(id),'*') FROM project_member "
+				  +"WHERE tel=?";
+			   ps=conn.prepareStatement(sql);
+			   ps.setString(1, tel);
+			   rs=ps.executeQuery();
+			   rs.next();
+			   result=rs.getString(1);
+			   rs.close();
+		   }
+		   
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   finally
+	   {
+		   disConnection();
+	   }
+	   return result;
+  }
+  
 }
