@@ -125,8 +125,8 @@ $(function(){
         </c:if>
         <c:if test="${sessionScope.id!=null }"><%--로그인이 된 상태 --%>
 	        <ul>
-	          <li><a href="pages/gallery.html">회원수정</a></li>
-	          <li><a href="pages/full-width.html">회원탈퇴</a></li>
+	          <li><a href="../member/join_update.do">회원수정</a></li>
+	          <li><a href="../member/join_delete.do">회원탈퇴</a></li>
 	        </ul>
         </c:if>
       </li>

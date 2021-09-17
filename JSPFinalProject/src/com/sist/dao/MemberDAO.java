@@ -161,6 +161,39 @@ public class MemberDAO {
 		  disConnection();
 	  }
   }
+  public MemberVO memberJoinUpdateData(String id)
+  {
+	  MemberVO vo=new MemberVO();
+	  try
+	  {
+		  getConnection();
+		  String sql="SELECT name,sex,birthday,email,post,addr1,addr2,"
+				    +"tel,id FROM project_member "
+				    +"WHERE id=?";
+		  ps=conn.prepareStatement(sql);
+		  ps.setString(1, id);
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  vo.setName(rs.getString(1));
+		  vo.setSex(rs.getString(2));
+		  vo.setBirthday(rs.getString(3));
+		  vo.setEmail(rs.getString(4));
+		  vo.setPost(rs.getString(5));
+		  vo.setAddr1(rs.getString(6));
+		  vo.setAddr2(rs.getString(7));
+		  vo.setTel(rs.getString(8));
+		  vo.setId(rs.getString(9));
+		  rs.close();
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+	  }
+	  finally
+	  {
+		  disConnection();
+	  }
+	  return vo;
+  }
   // 로그인 
   public String isLogin(String id,String pwd)
   {
@@ -215,6 +248,102 @@ public class MemberDAO {
 	  return result;
   }
   // 회원수정 
+  /*
+   *  vo.setId(id);
+	  vo.setPwd(pwd);
+	  vo.setName(name);
+	  vo.setSex(sex);
+	  vo.setBirthday(birthday);
+	  vo.setPost(post1+"-"+post2);
+	  vo.setEmail(email);
+	  vo.setAddr1(addr1);
+	  vo.setAddr2(addr2);
+	  vo.setTel(tel1+"-"+tel2);
+   */
+  public boolean joinUpdate(MemberVO vo)
+  {
+	  boolean bCheck=false;
+	  try
+	  {
+		  getConnection();
+		  String sql="SELECT pwd FROM project_member "
+				    +"WHERE id=?";
+		  ps=conn.prepareStatement(sql);
+		  ps.setString(1, vo.getId());
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  String db_pwd=rs.getString(1);
+		  rs.close();
+		  if(db_pwd.equals(vo.getPwd()))
+		  {
+			  bCheck=true;
+			  sql="UPDATE project_member SET "
+				 +"name=?,sex=?,birthday=?,post=?,addr1=?,addr2=?,"
+			     +"email=?,tel=? "
+				 +"WHERE id=?";
+			  ps=conn.prepareStatement(sql);
+			  ps.setString(1, vo.getName());
+			  ps.setString(2, vo.getSex());
+			  ps.setString(3, vo.getBirthday());
+			  ps.setString(4, vo.getPost());
+			  ps.setString(5, vo.getAddr1());
+			  ps.setString(6, vo.getAddr2());
+			  ps.setString(7, vo.getEmail());
+			  ps.setString(8, vo.getTel());
+			  ps.setString(9, vo.getId());
+			  ps.executeUpdate();
+		  }
+		  else
+		  {
+			  bCheck=false;
+		  }
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+	  }
+	  finally
+	  {
+		  disConnection();
+	  }
+	  return bCheck;
+  }
   // 회원탈퇴
+  public boolean memberJoinDelete(String id,String pwd)
+  {
+	  boolean bCheck=false;
+	  try
+	  {
+		  getConnection();
+		  String sql="SELECT pwd FROM project_member "
+				    +"WHERE id=?";
+		  ps=conn.prepareStatement(sql);
+		  ps.setString(1, id);
+		  ResultSet rs=ps.executeQuery();
+		  rs.next();
+		  String db_pwd=rs.getString(1);
+		  rs.close();
+		  if(db_pwd.equals(pwd))
+		  {
+			  bCheck=true;
+			  sql="DELETE FROM project_member "
+				 +"WHERE id=?";
+			  ps=conn.prepareStatement(sql);
+			  ps.setString(1,id);
+			  ps.executeUpdate();
+		  }
+		  else
+		  {
+			  bCheck=false;
+		  }
+	  }catch(Exception ex)
+	  {
+		  ex.printStackTrace();
+	  }
+	  finally
+	  {
+		  disConnection();
+	  }
+	  return bCheck;
+  }
   // 아이디찾기 , 비밀번호찾기 
 }
