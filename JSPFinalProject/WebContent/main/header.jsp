@@ -188,7 +188,7 @@ $(function(){
 	        <ul>
 	          <li><a href="../reserve/reserve.do">맛집예약</a></li>
 	          <li><a href="pages/gallery.html">영화예매</a></li>
-	          <li><a href="../recommand/recommand.do">맛집추천</a></li>
+	          <li><a href="../recommand/food_recommand.do">맛집추천</a></li>
 	          <li><a href="pages/gallery.html">영화추천</a></li>
 	          <li><a href="pages/gallery.html">레시피추천</a></li>
 	        </ul>
