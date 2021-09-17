@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import java.util.*;
+import com.sist.vo.*;
+import com.sist.dao.*;
 @Controller
 public class RecommandModel {
     @RequestMapping("recommand/food_recommand.do")
@@ -70,6 +72,17 @@ public class RecommandModel {
         request.setAttribute("list", list);
         
     	return "../recommand/sub_menu.jsp";
+    }
+    @RequestMapping("recommand/recommand_result.do")
+    public String recommand_result(HttpServletRequest request,HttpServletResponse response)
+    {
+    	String menu=request.getParameter("menu");
+    	FoodDAO dao=FoodDAO.newInstance();
+    	int a=(int)(Math.random()*30)+1;
+    	List<FoodVO> list=dao.foodCategoryListData(a);
+    	request.setAttribute("list", list);
+    	request.setAttribute("menu", menu);
+    	return "../recommand/food_result.jsp";
     }
 }
 
