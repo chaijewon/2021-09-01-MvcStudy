@@ -188,7 +188,7 @@ $(function(){
 	        <ul>
 	          <li><a href="../reserve/reserve.do">맛집예약</a></li>
 	          <li><a href="pages/gallery.html">영화예매</a></li>
-	          <li><a href="pages/gallery.html">맛집추천</a></li>
+	          <li><a href="../recommand/recommand.do">맛집추천</a></li>
 	          <li><a href="pages/gallery.html">영화추천</a></li>
 	          <li><a href="pages/gallery.html">레시피추천</a></li>
 	        </ul>
@@ -197,10 +197,10 @@ $(function(){
        <li><a href="../news/news.do">뉴스</a></li>
       <c:if test="${sessionScope.id!=null }">
         <c:if test="${admin=='n' }">
-          <li><a href="#">마이페이지</a></li>
+          <li><a href="../reserve/mypage.do">마이페이지</a></li>
         </c:if>
         <c:if test="${admin=='y' }">
-          <li><a href="#">어드민페이지</a></li>
+          <li><a href="../reserve/adminpage.do">어드민페이지</a></li>
         </c:if>
       </c:if>
     </ul>

@@ -198,6 +198,46 @@ public class ReserveModel {
 	  return "../main/main.jsp";
   }
   
+  @RequestMapping("reserve/adminpage.do")
+  public String reserve_adminpage(HttpServletRequest request,HttpServletResponse response)
+  {
+	  // 예약 등록된 전체데이터 출력 
+	  FoodDAO dao=FoodDAO.newInstance();
+	  List<ReserveVO> list=dao.adminpageData();
+	  request.setAttribute("list", list);
+	  request.setAttribute("main_jsp", "../reserve/adminpage.jsp");
+	  return "../main/main.jsp";
+  }
+  
+  @RequestMapping("reserve/ok.do")
+  public String reserve_ok2(HttpServletRequest request,HttpServletResponse response)
+  {
+	  String no=request.getParameter("no");
+	  FoodDAO dao=FoodDAO.newInstance();
+	  dao.reserveOkData(Integer.parseInt(no));
+	  return "redirect:../reserve/adminpage.do";
+  }
+  
+  @RequestMapping("reserve/reserve_info.do")
+  public String reserve_info(HttpServletRequest request,HttpServletResponse response)
+  {
+	  // data:{"no":no}
+	  String no=request.getParameter("no");
+	  FoodDAO dao=FoodDAO.newInstance();
+	  // 맛집에 대한 정보 
+	  // 예약정보 
+	  ReserveVO rvo=dao.reserveInfoData(Integer.parseInt(no));
+	  FoodVO vo=dao.foodDetailData(rvo.getFno());
+	  String address=vo.getAddress();
+	  String addr1=address.substring(0,address.lastIndexOf("지"));
+	   // 서울특별시 송파구 백제고분로41길 43-21 SANDONG빌딩
+	  String addr2=address.substring(address.lastIndexOf("지"));
+	  vo.setAddr1(addr1);
+	  vo.setAddr2(addr2);
+	  request.setAttribute("vo", vo);
+	  request.setAttribute("rvo", rvo);
+	  return "../reserve/reserve_info.jsp";
+  }
 }
 
 

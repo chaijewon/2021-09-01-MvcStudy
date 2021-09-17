@@ -463,7 +463,7 @@ public class FoodDAO {
 					    +"(SELECT address FROM project_food_house WHERE project_food_house.no=food_reserve.no) as address,"
 					    +"(SELECT tel FROM project_food_house WHERE project_food_house.no=food_reserve.no) as tel "
 					    +"FROM food_reserve "
-					    +"WHERE id=?";
+					    +"WHERE id=? ORDER BY no DESC";
 			  ps=conn.prepareStatement(sql);
 			  ps.setString(1, id);
 			  ResultSet rs=ps.executeQuery();
@@ -499,8 +499,9 @@ public class FoodDAO {
 		  try
 		  {
 			  getConnection();
-			  String sql="SELECT no,fno,rday,rtime,inwon,ischeck,id "
-					    +"FROM food_reserve";
+			  String sql="SELECT no,fno,rday,rtime,inwon,ischeck,id, "
+					    +"(SELECT name FROM project_food_house WHERE project_food_house.no=food_reserve.no) as name "
+					    +"FROM food_reserve ORDER BY no DESC";
 			  ps=conn.prepareStatement(sql);
 			  ResultSet rs=ps.executeQuery();
 			  while(rs.next())
@@ -513,6 +514,7 @@ public class FoodDAO {
 				  vo.setInwon(rs.getInt(5));
 				  vo.setIsCheck(rs.getInt(6));
 				  vo.setId(rs.getString(7));
+				  vo.setName(rs.getNString(8));
 				  list.add(vo);
 			  }
 			  rs.close();
@@ -526,6 +528,63 @@ public class FoodDAO {
 		  }
 		  return list;
 	  }
+	  //승인
+	  public void reserveOkData(int no)
+	  {
+		  try
+		  {
+			  getConnection();
+			  String sql="UPDATE food_reserve SET "
+					    +"isCheck=1 "
+					    +"WHERE no=?";
+			  ps=conn.prepareStatement(sql);
+			  ps.setInt(1, no);
+			  ps.executeUpdate();
+		  }catch(Exception ex)
+		  {
+			  ex.printStackTrace();
+		  }
+		  finally
+		  {
+			  disConnection();
+		  }
+	  }
+	  // 예약 정보 (인원수)==> 장바구니(수량,금액)
+	  public ReserveVO reserveInfoData(int no)
+	  {
+		  /*
+		   *  private int no,fno,isCheck,inwon;
+              private String id,rday,rtime,name,address,tel
+		   */
+		  ReserveVO vo=new ReserveVO();
+		  try
+		  {
+			  getConnection();
+			  String sql="SELECT fno,inwon,rday,rtime,no "
+					    +"FROM food_reserve "
+					    +"WHERE no=?";
+			  ps=conn.prepareStatement(sql);
+			  ps.setInt(1, no);
+			  ResultSet rs=ps.executeQuery();
+			  rs.next();
+			  vo.setFno(rs.getInt(1));
+			  vo.setInwon(rs.getInt(2));
+			  vo.setRday(rs.getString(3));
+			  vo.setRtime(rs.getString(4));
+			  vo.setNo(rs.getInt(5));
+			  rs.close();
+		  }catch(Exception ex)
+		  {
+			  ex.printStackTrace();
+		  }
+		  finally
+		  {
+			  disConnection();
+		  }
+		  return vo;
+	  }
+	  // 맛집 정보 => foodDetailData() => 대체
+	  
 }
 
 
